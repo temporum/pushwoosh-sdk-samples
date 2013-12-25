@@ -20,7 +20,7 @@
  function initPushwoosh() {
 	var pushNotification = window.plugins.pushNotification;
 	pushNotification.onDeviceReady();
-	
+     
 	pushNotification.registerDevice({alert:true, badge:true, sound:true, pw_appid:"4F0C807E51EC77.93591449", appname:"Pushwoosh"},
 									function(status) {
 										var deviceToken = status['deviceToken'];
@@ -30,7 +30,7 @@
 										console.warn('failed to register : ' + JSON.stringify(status));
 										navigator.notification.alert(JSON.stringify(['failed to register ', status]));
 									});
-	
+     
 	pushNotification.setApplicationIconBadgeNumber(0);
 	 
 	pushNotification.getTags(function(tags) {

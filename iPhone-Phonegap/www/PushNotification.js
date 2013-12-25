@@ -41,7 +41,7 @@
 		cordova.exec(success, fail, "PushNotification", "unregisterDevice", []);
 	};
 
- 	//Android Only----
+	//Android Only----
 	//config params: {msg:"message", seconds:30, userData:"optional"}
 	PushNotification.prototype.createLocalNotification = function(config, success, fail) {
 		cordova.exec(success, fail, "PushNotification", "createLocalNotification", config ? [config] : []);

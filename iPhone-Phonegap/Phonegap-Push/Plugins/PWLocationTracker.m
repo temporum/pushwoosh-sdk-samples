@@ -45,8 +45,6 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 	
 	self.locationManager.delegate = nil;
 	self.locationManager = nil;
-	
-	[super dealloc];
 }
 
 #pragma mark - Notification handlers
@@ -111,7 +109,8 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
         if (self.locationUpdatedInBackground) {
 			dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
 			dispatch_async(queue, ^{
-				UIBackgroundTaskIdentifier __block bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{
+				UIBackgroundTaskIdentifier __block bgTask;
+				bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{
 					[[UIApplication sharedApplication] endBackgroundTask:bgTask];
 					bgTask = UIBackgroundTaskInvalid;
 				}];
