@@ -16,82 +16,31 @@
        specific language governing permissions and limitations
        under the License.
 -->
-<cordova>
-    <!--
-    access elements control the Android whitelist.
-    Domains are assumed blocked unless set otherwise
-     -->
+<widget xmlns="http://www.w3.org/ns/widgets" id="com.pushwoosh.test" version="2.0.0">
+    <name>Pushwoosh Amazon Cordova Sample</name>
 
-    <access origin="http://127.0.0.1*" />
-    <!-- allow local pages -->
+    <description>
+        Amazon Pushwoosh Module
+    </description>
 
-    <!-- <access origin="https://example.com" /> allow any secure requests to example.com -->
-    <!-- <access origin="https://example.com" subdomains="true" /> such as above, but including subdomains, such as www -->
-    <access origin=".*" />
+    <author href="http://cordova.io" email="dev@cordova.apache.org">
+        Pushwoosh
+    </author>
+
+    <access origin="*" />
 
     <!-- <content src="http://mysite.com/myapp.html" /> for external pages -->
     <content src="index.html" />
 
-    <log level="DEBUG" />
-    <preference
-        name="useBrowserHistory"
-        value="true" />
-    <preference
-        name="exit-on-suspend"
-        value="false" />
-    <plugins>
-        <plugin
-            name="App"
-            value="org.apache.cordova.App" />
-        <plugin
-            name="Geolocation"
-            value="org.apache.cordova.GeoBroker" />
-        <plugin
-            name="Device"
-            value="org.apache.cordova.Device" />
-        <plugin
-            name="Accelerometer"
-            value="org.apache.cordova.AccelListener" />
-        <plugin
-            name="Compass"
-            value="org.apache.cordova.CompassListener" />
-        <plugin
-            name="Media"
-            value="org.apache.cordova.AudioHandler" />
-        <plugin
-            name="Camera"
-            value="org.apache.cordova.CameraLauncher" />
-        <plugin
-            name="Contacts"
-            value="org.apache.cordova.ContactManager" />
-        <plugin
-            name="File"
-            value="org.apache.cordova.FileUtils" />
-        <plugin
-            name="NetworkStatus"
-            value="org.apache.cordova.NetworkManager" />
-        <plugin
-            name="Notification"
-            value="org.apache.cordova.Notification" />
-        <plugin
-            name="Storage"
-            value="org.apache.cordova.Storage" />
-        <plugin
-            name="FileTransfer"
-            value="org.apache.cordova.FileTransfer" />
-        <plugin
-            name="Capture"
-            value="org.apache.cordova.Capture" />
-        <plugin
-            name="Battery"
-            value="org.apache.cordova.BatteryListener" />
-        <plugin
-            name="SplashScreen"
-            value="org.apache.cordova.SplashScreen" />
-        <plugin
-            name="PushNotification"
-            value="com.pushwoosh.plugin.pushnotifications.PushNotifications"
-            onload="true" />
-    </plugins>
-</cordova>
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="useBrowserHistory" value="true" />
+    <preference name="exit-on-suspend" value="false" />
 
+    <!-- This is required for native Android hooks -->
+    <feature name="App">
+        <param name="android-package" value="org.apache.cordova.App" />
+    </feature>
+    <feature name="PushNotification">
+        <param name="android-package" value="com.pushwoosh.plugin.pushnotifications.PushNotifications"/>
+    </feature>
+</widget>

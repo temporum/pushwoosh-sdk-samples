@@ -11,7 +11,7 @@ function initPushwoosh()
    									console.warn('user data: ' + JSON.stringify(userData));
    								}
 
-   								navigator.notification.alert(title);
+   								alert(title);
 
    								pushNotification.stopGeoPushes();
    							  });

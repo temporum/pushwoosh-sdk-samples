@@ -20,9 +20,7 @@
 package com.arellomobile.sample.admmessenger;
 
 import android.os.Bundle;
-
-import org.apache.cordova.Config;
-import org.apache.cordova.DroidGap;
+import org.apache.cordova.*;
 
 public class MainActivity extends DroidGap
 {
