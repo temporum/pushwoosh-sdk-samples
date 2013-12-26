@@ -12,6 +12,9 @@
 
 #import "PWLocationTracker.h"
 
+#define LOCATIONS_FILE @"PWLocationTracking"
+#define LOCATIONS_FILE_TYPE @"log"
+
 @interface AppDelegate ()
 @property (nonatomic, strong) PWLocationTracker *locationTracker;
 @end
@@ -26,23 +29,18 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-	self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
-	
-	self.window.rootViewController = self.viewController;
+    
+    self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-
-	//set custom delegate for push handling
+    
+    //set custom delegate for push handling
 	PushNotificationManager * pushManager = [PushNotificationManager pushManager];
 	pushManager.delegate = self.viewController;
-	
-	if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
-		PushNotificationManager * pushManager = [PushNotificationManager pushManager];
-		[pushManager startLocationTracking];
-    }
-	
+    pushManager.locationTracker.loggingEnabled = YES; //for logging location tracking in file Documents/PWLocationTracking.log
+    
     return YES;
 }
 

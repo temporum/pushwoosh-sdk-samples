@@ -33,6 +33,8 @@
 
 @interface PW_SBJsonWriter ()
 
+@property (nonatomic, retain) NSMutableCharacterSet *kEscapeChars;
+
 - (BOOL)appendValue:(id)fragment into:(NSMutableString*)json;
 - (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json;
 - (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json;
@@ -46,6 +48,17 @@
 
 @synthesize sortKeys;
 @synthesize humanReadable;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        if(!_kEscapeChars ) {
+            self.kEscapeChars = [NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)];
+            [_kEscapeChars addCharactersInString: @"\"\\"];
+        }
+    }
+    return self;
+}
 
 /**
  @deprecated This exists in order to provide fragment support in older APIs in one more version.
@@ -184,16 +197,9 @@
 }
 
 - (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json {
-    
-    static NSMutableCharacterSet *kEscapeChars;
-    if( ! kEscapeChars ) {
-        kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
-        [kEscapeChars addCharactersInString: @"\"\\"];
-    }
-    
     [json appendString:@"\""];
     
-    NSRange esc = [fragment rangeOfCharacterFromSet:kEscapeChars];
+    NSRange esc = [fragment rangeOfCharacterFromSet:_kEscapeChars];
     if ( !esc.length ) {
         // No special chars -- can just add the raw string:
         [json appendString:fragment];
