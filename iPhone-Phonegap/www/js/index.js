@@ -49,7 +49,7 @@
 	document.addEventListener('push-notification', function(event) {
 								var notification = event.notification;
 								
-  							    navigator.notification.alert(notification.aps.alert);
+  							    alert(notification.aps.alert);
 								
 								//to view full push payload
 								//navigator.notification.alert(JSON.stringify(notification));
