@@ -1,14 +1,15 @@
 package com.pushwoosh.test.tags.sample.app;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
-import com.arellomobile.android.push.PushManager;
-import com.arellomobile.android.push.exception.PushWooshException;
-import com.arellomobile.android.push.tags.SendPushTagsCallBack;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.arellomobile.android.push.PushManager;
+import com.arellomobile.android.push.SendPushTagsCallBack;
+import com.arellomobile.android.push.exception.PushWooshException;
 
 /**
  * Date: 01.11.12
