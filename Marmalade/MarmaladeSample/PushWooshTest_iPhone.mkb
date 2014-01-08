@@ -13,6 +13,7 @@ deployments
 	version-minor=0
 	iphone-appid='com.pushwoosh.testapp'
 	iphone-info-plist=Info.plist
+	iphone-link-opts="-framework CoreLocation -framework AdSupport"
 }
 
 options
