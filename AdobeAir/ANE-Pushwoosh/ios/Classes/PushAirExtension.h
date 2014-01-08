@@ -13,12 +13,3 @@ void PushwooshContextInitializer(void* extData, const uint8_t* ctxType, FREConte
 void PushwooshContextFinalizer(FREContext ctx);
 void PushwooshExtInitializer(void** extDataToSet, FREContextInitializer* ctxInitializerToSet, FREContextFinalizer* ctxFinalizerToSet );
 void PushwooshExtFinalizer(void *extData);
-
-@interface UIApplication(SupressWarnings)
-- (void)application:(UIApplication *)application pw_didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken;
-- (void)application:(UIApplication *)application pw_didFailToRegisterForRemoteNotificationsWithError:(NSError *)err;
-- (void)application:(UIApplication *)application pw_didReceiveRemoteNotification:(NSDictionary *)userInfo;
-
-- (BOOL)application:(UIApplication *)application pw_didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
-@end
-

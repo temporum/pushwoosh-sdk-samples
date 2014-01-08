@@ -53,6 +53,8 @@ DEFINE_ANE_FUNCTION(setBadgeNumber)
     return nil;
 }
 
+extern int getPushNotificationMode();
+
 DEFINE_ANE_FUNCTION(registerPush)
 {
 	if(g_tokenStr) {
@@ -70,7 +72,7 @@ DEFINE_ANE_FUNCTION(registerPush)
 		free(g_pushMessageStr); g_pushMessageStr = 0;
 	}
 	
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:getPushNotificationMode()];
 	
 	return nil;
 }
@@ -131,7 +133,7 @@ DEFINE_ANE_FUNCTION(scheduleLocalNotification)
 	
 	PW_SBJsonParser * json = [[PW_SBJsonParser alloc] init];
 	NSDictionary *jsonDict =[json objectWithString:bodyJson];
-	[json release]; json = nil;
+	json = nil;
 	
 	if(!jsonDict)
 		return nil;
@@ -170,15 +172,7 @@ DEFINE_ANE_FUNCTION(clearAllLocalNotifications)
 
 DEFINE_ANE_FUNCTION(startGeoPushes)
 {
-	NSString* mode = FreToNSString(argv[0]);
-	if(mode != nil || [mode isEqualToString:@""])
-	{
-		[[PushNotificationManager pushManager] startLocationTracking];
-	}
-	else
-	{
-		[[PushNotificationManager pushManager] startLocationTracking:mode];
-	}
+	[[PushNotificationManager pushManager] startLocationTracking];
 	
 	return nil;
 }
@@ -267,10 +261,14 @@ void PushwooshExtFinalizer(void *extData) {
 	NSLog(@"ExtFinalizer()");
 }
 
-#import <objc/runtime.h>
 #import "PW_SBJsonWriter.h"
 
-@implementation UIApplication(Pushwoosh)
+@implementation UIApplication(AdobeAirPushwoosh)
+
+- (NSObject<PushNotificationDelegate> *)getPushwooshDelegate
+{
+	return (NSObject<PushNotificationDelegate> *)[UIApplication sharedApplication];
+}
 
 //succesfully registered for push notifications
 - (void) onDidRegisterForRemoteNotificationsWithDeviceToken:(NSString *)token
@@ -306,9 +304,9 @@ void PushwooshExtFinalizer(void *extData) {
 
 	PW_SBJsonWriter * json = [[PW_SBJsonWriter alloc] init];
 	NSString *jsonRequestData =[json stringWithObject:pn];
-	[json release]; json = nil;
+	json = nil;
 	
-	[pn release]; pn = nil;
+	pn = nil;
 
 	const char * str = [jsonRequestData UTF8String];
 	
@@ -319,110 +317,6 @@ void PushwooshExtFinalizer(void *extData) {
 	}
 
 	FREDispatchStatusEventAsync(myCtx, (uint8_t*)"PUSH_RECEIVED", (uint8_t*)str);
-}
-
-static void swizze(Class class, SEL fromChange, SEL toChange, IMP impl, const char * signature)
-{
-	Method method = nil;
-	method = class_getInstanceMethod(class, fromChange);
-	
-	if (method) {
-		//method exists add a new method and swap with original
-		class_addMethod(class, toChange, impl, signature);
-		method_exchangeImplementations(class_getInstanceMethod(class, fromChange), class_getInstanceMethod(class, toChange));
-	} else {
-		//just add as orignal method
-		class_addMethod(class, fromChange, impl, signature);
-	}
-}
-
-BOOL dynamicDidFinishLaunching(id self, SEL _cmd, id application, id launchOptions) {
-	BOOL result = YES;
-	
-	if ([self respondsToSelector:@selector(application:pw_didFinishLaunchingWithOptions:)]) {
-		result = (BOOL) [self application:application pw_didFinishLaunchingWithOptions:launchOptions];
-	} else {
-		[self applicationDidFinishLaunching:application];
-		result = YES;
-	}
-	
-	if(![PushNotificationManager pushManager].delegate) {
-		[PushNotificationManager pushManager].delegate = (NSObject<PushNotificationDelegate> *)[UIApplication sharedApplication];
-	}
-	
-	[[PushNotificationManager pushManager] handlePushReceived:launchOptions];
-	[[PushNotificationManager pushManager] sendAppOpen];
-	
-	return result;
-}
-
-void dynamicDidRegisterForRemoteNotificationsWithDeviceToken(id self, SEL _cmd, id application, id devToken) {
-	if ([self respondsToSelector:@selector(application:pw_didRegisterForRemoteNotificationsWithDeviceToken:)]) {
-		[self application:application pw_didRegisterForRemoteNotificationsWithDeviceToken:devToken];
-	}
-	
-	[[PushNotificationManager pushManager] handlePushRegistration:devToken];
-}
-
-void dynamicDidFailToRegisterForRemoteNotificationsWithError(id self, SEL _cmd, id application, id error) {
-	if ([self respondsToSelector:@selector(application:pw_didFailToRegisterForRemoteNotificationsWithError:)]) {
-		[self application:application pw_didFailToRegisterForRemoteNotificationsWithError:error];
-	}
-
-	NSLog(@"Error registering for push notifications. Error: %@", error);
-	
-	[[PushNotificationManager pushManager] handlePushRegistrationFailure:error];
-}
-
-void dynamicDidReceiveRemoteNotification(id self, SEL _cmd, id application, id userInfo) {
-	if ([self respondsToSelector:@selector(application:pw_didReceiveRemoteNotification:)]) {
-		[self application:application pw_didReceiveRemoteNotification:userInfo];
-	}
-
-	[[PushNotificationManager pushManager] handlePushReceived:userInfo];
-}
-
-
-- (void) pw_setDelegate:(id<UIApplicationDelegate>)delegate {
-
-	static Class delegateClass = nil;
-	
-	//do not swizzle the same class twice
-	if(delegateClass == [delegate class])
-	{
-		[self pw_setDelegate:delegate];
-		return;
-	}
-	
-	delegateClass = [delegate class];
-	
-	swizze([delegate class], @selector(application:didFinishLaunchingWithOptions:),
-		   @selector(application:pw_didFinishLaunchingWithOptions:), (IMP)dynamicDidFinishLaunching, "v@:::");
-
-	swizze([delegate class], @selector(application:didRegisterForRemoteNotificationsWithDeviceToken:),
-		   @selector(application:pw_didRegisterForRemoteNotificationsWithDeviceToken:), (IMP)dynamicDidRegisterForRemoteNotificationsWithDeviceToken, "v@:::");
-
-	swizze([delegate class], @selector(application:didFailToRegisterForRemoteNotificationsWithError:),
-		   @selector(application:pw_didFailToRegisterForRemoteNotificationsWithError:), (IMP)dynamicDidFailToRegisterForRemoteNotificationsWithError, "v@:::");
-
-	swizze([delegate class], @selector(application:didReceiveRemoteNotification:),
-		   @selector(application:pw_didReceiveRemoteNotification:), (IMP)dynamicDidReceiveRemoteNotification, "v@:::");
-	
-	[self pw_setDelegate:delegate];
-}
-
-- (void) pw_setApplicationIconBadgeNumber:(NSInteger) badgeNumber {
-	[self pw_setApplicationIconBadgeNumber:badgeNumber];
-	
-	[[PushNotificationManager pushManager] sendBadges:badgeNumber];
-}
-
-+ (void) load {
-	method_exchangeImplementations(class_getInstanceMethod(self, @selector(setApplicationIconBadgeNumber:)), class_getInstanceMethod(self, @selector(pw_setApplicationIconBadgeNumber:)));
-	method_exchangeImplementations(class_getInstanceMethod(self, @selector(setDelegate:)), class_getInstanceMethod(self, @selector(pw_setDelegate:)));
-	
-	UIApplication *app = [UIApplication sharedApplication];
-	NSLog(@"Initializing application: %@, %@", app, app.delegate);
 }
 
 @end
