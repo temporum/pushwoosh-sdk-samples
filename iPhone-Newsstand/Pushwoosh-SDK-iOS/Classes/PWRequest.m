@@ -6,6 +6,12 @@
 
 #import "PWRequest.h"
 
+#define kSDKVersion @"2.0"
+
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
 @implementation PWRequest
 @synthesize appId, hwid;
 
@@ -22,17 +28,11 @@
 	NSMutableDictionary *dict = [NSMutableDictionary new];
 	[dict setObject:appId forKey:@"application"];
 	[dict setObject:hwid forKey:@"hwid"];
-	return [dict autorelease];
+	[dict setObject:kSDKVersion forKey:@"v"];
+	return dict;
 }
 
 - (void) parseResponse: (NSDictionary *) response {
-}
-
-- (void) dealloc {
-	self.appId = nil;
-	self.hwid = nil;
-	
-	[super dealloc];
 }
 
 @end

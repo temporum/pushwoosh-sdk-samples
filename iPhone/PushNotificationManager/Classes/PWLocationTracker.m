@@ -15,6 +15,10 @@
 //comment this line to disable location tracking for geo-push notifications and dependency on CoreLocation.framework
 #define USE_LOCATION
 
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
 static CGFloat const kMinUpdateDistance = 10.f;
 static NSTimeInterval const kMinUpdateTime = 10.f;
 
