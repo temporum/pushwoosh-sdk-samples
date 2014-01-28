@@ -107,7 +107,7 @@ s3eResult s3ePushWooshScheduleLocalNotification(const char * message, int second
 /**
  * Sets Android multi-notification mode.
  */
-s3eResult s3ePushWooshSetAnroidNotificationMultiMode(bool enable);
+s3eResult s3ePushWooshSetAndroidNotificationMultiMode(bool enable);
 
 S3E_END_C_DECL
 

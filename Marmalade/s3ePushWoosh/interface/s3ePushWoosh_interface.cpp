@@ -32,7 +32,7 @@ typedef  s3eResult(*s3ePushWooshNotificationSetIntTag_t)(const char * tagName, i
 typedef  s3eResult(*s3ePushWooshNotificationSetStringTag_t)(const char * tagName, const char * tagValue);
 typedef  s3eResult(*s3ePushWooshClearLocalNotifications_t)();
 typedef  s3eResult(*s3ePushWooshScheduleLocalNotification_t)(const char * message, int seconds, const char * userdata);
-typedef  s3eResult(*s3ePushWooshSetAnroidNotificationMultiMode_t)(bool enable);
+typedef  s3eResult(*s3ePushWooshSetAndroidNotificationMultiMode_t)(bool enable);
 
 /**
  * struct that gets filled in by s3ePushWooshRegister
@@ -49,7 +49,7 @@ typedef struct s3ePushWooshFuncs
     s3ePushWooshNotificationSetStringTag_t m_s3ePushWooshNotificationSetStringTag;
     s3ePushWooshClearLocalNotifications_t m_s3ePushWooshClearLocalNotifications;
     s3ePushWooshScheduleLocalNotification_t m_s3ePushWooshScheduleLocalNotification;
-    s3ePushWooshSetAnroidNotificationMultiMode_t m_s3ePushWooshSetAnroidNotificationMultiMode;
+    s3ePushWooshSetAndroidNotificationMultiMode_t m_s3ePushWooshSetAndroidNotificationMultiMode;
 } s3ePushWooshFuncs;
 
 static s3ePushWooshFuncs g_Ext;
@@ -295,18 +295,18 @@ s3eResult s3ePushWooshScheduleLocalNotification(const char * message, int second
     return ret;
 }
 
-s3eResult s3ePushWooshSetAnroidNotificationMultiMode(bool enable)
+s3eResult s3ePushWooshSetAndroidNotificationMultiMode(bool enable)
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[10] func: s3ePushWooshSetAnroidNotificationMultiMode"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[10] func: s3ePushWooshSetAndroidNotificationMultiMode"));
 
     if (!_extLoad())
-        return ;;
+        return S3E_RESULT_SUCCESS;
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
 #endif
 
-    s3eResult ret = g_Ext.m_s3ePushWooshSetAnroidNotificationMultiMode(enable);
+    s3eResult ret = g_Ext.m_s3ePushWooshSetAndroidNotificationMultiMode(enable);
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
