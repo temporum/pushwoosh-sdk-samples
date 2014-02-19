@@ -4,7 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PushNotificationManager.h"
+#import <Pushwoosh/PushNotificationManager.h>
 
 @class StoreViewController;
 
