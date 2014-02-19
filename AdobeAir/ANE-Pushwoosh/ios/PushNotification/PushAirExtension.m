@@ -5,7 +5,6 @@
 //
 
 #import "PushAirExtension.h"
-#import "PW_SBJsonParser.h"
 
 #define DEFINE_ANE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 
@@ -130,10 +129,7 @@ DEFINE_ANE_FUNCTION(scheduleLocalNotification)
     if (!bodyJson)
         return nil;
 	
-	
-	PW_SBJsonParser * json = [[PW_SBJsonParser alloc] init];
-	NSDictionary *jsonDict =[json objectWithString:bodyJson];
-	json = nil;
+	NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[bodyJson dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
 	
 	if(!jsonDict)
 		return nil;
@@ -261,8 +257,6 @@ void PushwooshExtFinalizer(void *extData) {
 	NSLog(@"ExtFinalizer()");
 }
 
-#import "PW_SBJsonWriter.h"
-
 @implementation UIApplication(AdobeAirPushwoosh)
 
 - (NSObject<PushNotificationDelegate> *)getPushwooshDelegate
@@ -301,10 +295,9 @@ void PushwooshExtFinalizer(void *extData) {
 {
 	NSMutableDictionary * pn = [pushNotification mutableCopy];
 	[pn setObject:[NSNumber numberWithBool:onStart] forKey:@"onStart"];
-
-	PW_SBJsonWriter * json = [[PW_SBJsonWriter alloc] init];
-	NSString *jsonRequestData =[json stringWithObject:pn];
-	json = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:pn options:0 error:nil];
+    NSString *jsonRequestData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 	
 	pn = nil;
 

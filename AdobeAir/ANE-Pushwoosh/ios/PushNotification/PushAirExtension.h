@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "PushNotificationManager.h"
+#import <Pushwoosh/PushNotificationManager.h>
 #import "FlashRuntimeExtensions.h"
 
 void PushwooshContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx, uint32_t* numFunctionsToTest, const FRENamedFunction** functionsToSet);
