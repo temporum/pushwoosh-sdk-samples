@@ -14,6 +14,7 @@
 
 @interface UIApplication(InternalPushRuntime)
 - (NSObject<PushNotificationDelegate> *)getPushwooshDelegate;
+- (BOOL) pushwooshDontAutoRegister;
 @end
 
 static void swizze(Class class, SEL fromChange, SEL toChange, IMP impl, const char * signature)
@@ -61,9 +62,11 @@ BOOL dynamicDidFinishLaunching(id self, SEL _cmd, id application, id launchOptio
 	
 	int modes = getPushNotificationMode();
 
-	BOOL autoRegisterMode = ![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_NOAUTOREGISTER"] boolValue];
-	if (autoRegisterMode) {
-		[[UIApplication sharedApplication] registerForRemoteNotificationTypes:modes];
+	if(![[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshDontAutoRegister)]) {
+		BOOL autoRegisterMode = ![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_NOAUTOREGISTER"] boolValue];
+		if (autoRegisterMode) {
+			[[UIApplication sharedApplication] registerForRemoteNotificationTypes:modes];
+		}
 	}
 	
 	if(![PushNotificationManager pushManager].delegate) {

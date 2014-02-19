@@ -8,8 +8,6 @@
 #import "PushNotificationManager.h"
 #import <objc/runtime.h>
 
-#import "PW_SBJsonWriter.h"
-
 #if ! __has_feature(objc_arc)
 #error "ARC is required to compile Pushwoosh SDK"
 #endif
@@ -115,10 +113,9 @@ void stopLocationTracking()
 //handle push notification, display alert, if this method is implemented onPushAccepted will not be called, internal message boxes will not be displayed
 - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart
 {
-	PW_SBJsonWriter * json = [[PW_SBJsonWriter alloc] init];
-	NSString *jsonRequestData =[json stringWithObject:pushNotification];
-	json = nil;
-	
+	NSData *jsonData = [NSJSONSerialization dataWithJSONObject:pushNotification options:0 error:nil];
+	NSString *jsonRequestData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
 	const char * str = [jsonRequestData UTF8String];
 	
 	if(!g_listenerName) {
