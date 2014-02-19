@@ -11,18 +11,18 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
-		43744FC1186956180034305C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43744FC0186956180034305C /* MessageUI.framework */; };
-		43744FD5186A9EFE0034305C /* libPushNotificationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43744FD2186A9EF30034305C /* libPushNotificationManager.a */; };
+		433F2EFF18AB30CB00614B57 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433F2EFE18AB30CB00614B57 /* Security.framework */; };
+		4379584B187D560C003E9430 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4379584A187D560C003E9430 /* CoreLocation.framework */; };
+		4379584F187D561F003E9430 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4379584E187D561F003E9430 /* MessageUI.framework */; };
+		43B0F41B187D5BCA00FA9139 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B0F41A187D5BCA00FA9139 /* Pushwoosh.framework */; };
 		50A9809015E7AC2F003579A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A9808F15E7AC2F003579A4 /* ViewController.m */; };
 		50A9809315E7ACB6003579A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A9809215E7ACB6003579A4 /* AppDelegate.m */; };
 		50A9809915E7AD67003579A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50A9809515E7AD67003579A4 /* InfoPlist.strings */; };
 		50A9809A15E7AD67003579A4 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A9809715E7AD67003579A4 /* ViewController.xib */; };
-		50C6D5C6174BADA70068E1A4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C6D5C5174BADA70068E1A4 /* CoreLocation.framework */; };
 		50F4B0791641438D00424547 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4B0781641438D00424547 /* logo.png */; };
 		5D5896D7182BA17C00D6C9D1 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5896CF182BA17C00D6C9D1 /* 57.png */; };
 		5D5896DA182BA17C00D6C9D1 /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5896D2182BA17C00D6C9D1 /* 114.png */; };
 		5D5896DB182BA17C00D6C9D1 /* 120.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5896D3182BA17C00D6C9D1 /* 120.png */; };
-		73C129F917A8F8FF00CA9627 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C129F817A8F8FF00CA9627 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		73C129FD17A9008400CA9627 /* CustomPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C129FB17A9008400CA9627 /* CustomPageViewController.m */; };
 		73C129FE17A9008400CA9627 /* CustomPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73C129FC17A9008400CA9627 /* CustomPageViewController.xib */; };
 		73C12A0217A90C9100CA9627 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C129FF17A90C9100CA9627 /* Default-568h@2x.png */; };
@@ -33,23 +33,6 @@
 		73C12A9417ABD7B600CA9627 /* silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73C12A9217ABD7B600CA9627 /* silence.wav */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		43744FD1186A9EF30034305C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43744FCD186A9EF20034305C /* PushNotificationManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = PushNotificationManager;
-		};
-		43744FD3186A9EFB0034305C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43744FCD186A9EF20034305C /* PushNotificationManager.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = PushNotificationManager;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* PushNotificationsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushNotificationsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,20 +40,20 @@
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* PushNotificationsApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationsApp_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		43744FC0186956180034305C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		43744FCD186A9EF20034305C /* PushNotificationManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PushNotificationManager.xcodeproj; path = PushNotificationManager/PushNotificationManager.xcodeproj; sourceTree = "<group>"; };
+		433F2EFE18AB30CB00614B57 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4379584A187D560C003E9430 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4379584E187D561F003E9430 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		43B0F41A187D5BCA00FA9139 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pushwoosh.framework; sourceTree = "<group>"; };
 		50A9808E15E7AC2F003579A4 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		50A9808F15E7AC2F003579A4 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		50A9809115E7ACB6003579A4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		50A9809215E7ACB6003579A4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		50A9809615E7AD67003579A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		50A9809815E7AD67003579A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = ViewController.xib; sourceTree = "<group>"; };
-		50C6D5C5174BADA70068E1A4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		50F4B0781641438D00424547 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		5D5896CF182BA17C00D6C9D1 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
 		5D5896D2182BA17C00D6C9D1 /* 114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114.png; sourceTree = "<group>"; };
 		5D5896D3182BA17C00D6C9D1 /* 120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120.png; sourceTree = "<group>"; };
-		73C129F817A8F8FF00CA9627 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		73C129FA17A9008400CA9627 /* CustomPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPageViewController.h; sourceTree = "<group>"; };
 		73C129FB17A9008400CA9627 /* CustomPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPageViewController.m; sourceTree = "<group>"; };
 		73C129FC17A9008400CA9627 /* CustomPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPageViewController.xib; sourceTree = "<group>"; };
@@ -88,10 +71,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43744FD5186A9EFE0034305C /* libPushNotificationManager.a in Frameworks */,
-				43744FC1186956180034305C /* MessageUI.framework in Frameworks */,
-				73C129F917A8F8FF00CA9627 /* AdSupport.framework in Frameworks */,
-				50C6D5C6174BADA70068E1A4 /* CoreLocation.framework in Frameworks */,
+				433F2EFF18AB30CB00614B57 /* Security.framework in Frameworks */,
+				43B0F41B187D5BCA00FA9139 /* Pushwoosh.framework in Frameworks */,
+				4379584F187D561F003E9430 /* MessageUI.framework in Frameworks */,
+				4379584B187D560C003E9430 /* CoreLocation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
@@ -164,23 +147,15 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43744FCD186A9EF20034305C /* PushNotificationManager.xcodeproj */,
-				43744FC0186956180034305C /* MessageUI.framework */,
-				73C129F817A8F8FF00CA9627 /* AdSupport.framework */,
-				50C6D5C5174BADA70068E1A4 /* CoreLocation.framework */,
+				433F2EFE18AB30CB00614B57 /* Security.framework */,
+				43B0F41A187D5BCA00FA9139 /* Pushwoosh.framework */,
+				4379584E187D561F003E9430 /* MessageUI.framework */,
+				4379584A187D560C003E9430 /* CoreLocation.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		43744FCE186A9EF20034305C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				43744FD2186A9EF30034305C /* libPushNotificationManager.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		50A9809415E7AD67003579A4 /* en.lproj */ = {
@@ -216,7 +191,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				43744FD4186A9EFB0034305C /* PBXTargetDependency */,
 			);
 			name = PushNotificationsApp;
 			productName = PushNotificationsApp;
@@ -244,28 +218,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 43744FCE186A9EF20034305C /* Products */;
-					ProjectRef = 43744FCD186A9EF20034305C /* PushNotificationManager.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* PushNotificationsApp */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		43744FD2186A9EF30034305C /* libPushNotificationManager.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPushNotificationManager.a;
-			remoteRef = 43744FD1186A9EF30034305C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -304,14 +262,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		43744FD4186A9EFB0034305C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = PushNotificationManager;
-			targetProxy = 43744FD3186A9EFB0034305C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		50A9809515E7AD67003579A4 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -337,6 +287,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${SRCROOT}/**",
+					"$(inherited)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -344,8 +298,6 @@
 				HEADER_SEARCH_PATHS = "./PushNotificationManager/**";
 				INFOPLIST_FILE = "PushNotificationsApp-Info.plist";
 				PRODUCT_NAME = PushNotificationsApp;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
 		};
@@ -354,6 +306,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"${SRCROOT}/**",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PushNotificationsApp_Prefix.pch;
 				HEADER_SEARCH_PATHS = "./PushNotificationManager/**";
@@ -366,16 +322,14 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Max Konev (M6E83N8DU5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Max Konev (M6E83N8DU5)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ./PushNotificationManager/Classes;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "DC2EB32F-1340-4E02-816E-D9F246953952";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DC2EB32F-1340-4E02-816E-D9F246953952";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -392,7 +346,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;

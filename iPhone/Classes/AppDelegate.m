@@ -8,9 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import "PushNotificationManager.h"
-
-#import "PWLocationTracker.h"
+#import <Pushwoosh/PushNotificationManager.h>
 
 #define LOCATIONS_FILE @"PWLocationTracking"
 #define LOCATIONS_FILE_TYPE @"log"
@@ -39,7 +37,6 @@
     //set custom delegate for push handling
 	PushNotificationManager * pushManager = [PushNotificationManager pushManager];
 	pushManager.delegate = self.viewController;
-    pushManager.locationTracker.loggingEnabled = YES; //for logging location tracking in file Documents/PWLocationTracking.log
     
     return YES;
 }

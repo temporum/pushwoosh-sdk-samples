@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "PushNotificationManager.h"
+#import <Pushwoosh/PushNotificationManager.h>
 
 @interface ViewController : UIViewController<UITextFieldDelegate, PushNotificationDelegate> {
 }

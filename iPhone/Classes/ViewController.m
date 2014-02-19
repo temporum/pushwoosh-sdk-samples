@@ -6,8 +6,7 @@
 
 
 #import "ViewController.h"
-#import "PushNotificationManager.h"
-#import "PW_SBJsonParser.h"
+#import <Pushwoosh/PushNotificationManager.h>
 #import "CustomPageViewController.h"
 
 @implementation ViewController
@@ -98,13 +97,19 @@
 	// You can set background color with custom JSON data in the following format: { "r" : "10", "g" : "200", "b" : "100" }
 	// Or open specific screen of the app with custom page ID (set ID in the { "id" : "2" } format)
 	NSString *customDataString = [pushManager getCustomPushData:pushNotification];
-	PW_SBJsonParser *jsonReader = [[PW_SBJsonParser alloc] init];
-	NSDictionary *jsonData = [jsonReader objectWithString:customDataString];
-	[jsonReader release];
-	
+    
+    NSDictionary *jsonData = nil;
+    
+    if (customDataString) {
+        jsonData = [NSJSONSerialization JSONObjectWithData:[customDataString dataUsingEncoding:NSUTF8StringEncoding]
+                                                   options:NSJSONReadingMutableContainers
+                                                     error:nil];
+    }
+    
 	NSString *redStr = [jsonData objectForKey:@"r"];
 	NSString *greenStr = [jsonData objectForKey:@"g"];
 	NSString *blueStr = [jsonData objectForKey:@"b"];
+    
 	if (redStr || greenStr || blueStr) {
 		[self setViewBackgroundColorWithRed:redStr green:greenStr blue:blueStr];
 	}
@@ -148,7 +153,7 @@
 	self.aliasField = nil;
 	self.favNumField = nil;
 	self.statusLabel = nil;
-
+    
 	[super dealloc];
 }
 @end
