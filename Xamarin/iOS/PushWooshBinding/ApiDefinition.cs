@@ -122,26 +122,6 @@ namespace PushWooshBinding
 
 
 	[BaseType (typeof (NSObject))]
-	public partial interface PWLocationTracker {
-
-		[Export ("locationManager", ArgumentSemantic.Retain)]
-		CLLocationManager LocationManager { get; set; }
-
-		[Export ("enabled")]
-		bool Enabled { get; set; }
-
-		[Export ("backgroundMode", ArgumentSemantic.Copy)]
-		string BackgroundMode { get; set; }
-
-		[Export ("locationUpdatedInForeground", ArgumentSemantic.Copy)]
-		LocationHandler LocationUpdatedInForeground { get; set; }
-
-		[Export ("locationUpdatedInBackground", ArgumentSemantic.Copy)]
-		LocationHandler LocationUpdatedInBackground { get; set; }
-	}
-
-
-	[BaseType (typeof (NSObject))]
 	public partial interface PWTags {
 
 		[Static, Export ("incrementalTagWithInteger:")]
@@ -195,9 +175,6 @@ namespace PushWooshBinding
 
 		[Export ("startLocationTracking")]
 		void StartLocationTracking ();
-
-		[Export ("startLocationTracking:")]
-		void StartLocationTracking (string mode);
 
 		[Export ("stopLocationTracking")]
 		void StopLocationTracking ();
