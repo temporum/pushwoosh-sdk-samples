@@ -149,9 +149,6 @@ namespace PushWooshBinding
 		[Export ("supportedOrientations")]
 		PWSupportedOrientations SupportedOrientations { get; set; }
 
-		[Export ("locationTracker", ArgumentSemantic.Retain)]
-		PWLocationTracker LocationTracker { get; set; }
-
 		[Export ("showPushnotificationAlert")]
 		bool ShowPushnotificationAlert { get; set; }
 
