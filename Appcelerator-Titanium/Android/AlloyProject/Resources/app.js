@@ -1,6 +1,6 @@
 var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
-var pushnotifications = require("com.arellomobie.push");
+var pushnotifications = require("com.arellomobile.push");
 
 Ti.API.info("module is => " + pushnotifications);
 

@@ -12,7 +12,7 @@ copyright: Copyright (c) 2012 by Pushwoosh
 
 # these should not be edited
 name: pushnotifications
-moduleid: com.arellomobie.push
+moduleid: com.arellomobile.push
 guid: 25080c7a-19fd-4809-90db-8a4117e44b84
 platform: android
 minsdk: 3.0.0.GA

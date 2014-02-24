@@ -10,7 +10,7 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
-	var pushnotifications = require('com.arellomobie.push');
+	var pushnotifications = require('com.arellomobile.push');
 	Ti.API.info("module is => " + pushnotifications);
 	
 	pushnotifications.pushNotificationsRegister("60756016005", "4F0C807E51EC77.93591449", {

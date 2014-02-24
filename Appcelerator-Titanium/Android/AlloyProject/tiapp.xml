@@ -6,7 +6,7 @@
     <publisher>Max</publisher>
     <url>http://pushwoosh.com</url>
     <description>not specified</description>
-    <copyright>2013 by Max</copyright>
+    <copyright>2013 by Pushwoosh</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
@@ -68,7 +68,7 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <module platform="android" version="1.0">com.arellomobie.push</module>
+        <module platform="android">com.arellomobile.push</module>
     </modules>
     <deployment-targets>
         <target device="blackberry">false</target>
@@ -78,7 +78,7 @@
         <target device="mobileweb">false</target>
         <target device="tizen">false</target>
     </deployment-targets>
-    <sdk-version>3.1.0.GA</sdk-version>
+    <sdk-version>3.1.3.GA</sdk-version>
     <plugins>
         <plugin version="1.0">ti.alloy</plugin>
     </plugins>

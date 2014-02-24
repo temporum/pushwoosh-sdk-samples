@@ -12,7 +12,7 @@ var label = Ti.UI.createLabel();
 win.add(label);
 win.open();
 
-var pushnotifications = require('com.arellomobie.push');
+var pushnotifications = require('com.arellomobile.push');
 Ti.API.info("module is => " + pushnotifications);
 	
 pushnotifications.pushNotificationsRegister("GOOGLE_PROJECT_ID", "PUSHWOOSH_APP_ID", {
