@@ -27,9 +27,6 @@ import android.content.IntentFilter;
 
 import com.arellomobile.android.push.PushManager;
 import com.arellomobile.android.push.exception.PushWooshException;
-import com.arellomobile.android.push.tags.SendPushTagsAbstractAsyncTask;
-import com.arellomobile.android.push.tags.SendPushTagsAsyncTask;
-import com.arellomobile.android.push.tags.SendPushTagsCallBack;
 import com.google.android.gcm.GCMRegistrar;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -52,6 +49,7 @@ class PushWoosh
 	
 	private Activity mainActivity = null;
 	private boolean broadcastPush = false;
+	private PushManager pushManager = null;
 
     public PushWoosh()
     {
@@ -92,7 +90,7 @@ class PushWoosh
 			broadcastPush = ai.metaData.getBoolean("PW_BROADCAST_PUSH");
 			System.out.println("Broadcast push: " + broadcastPush);
 
-            PushManager pushManager = new PushManager(activity, pwAppid, projectId);
+            pushManager = new PushManager(activity, pwAppid, projectId);
             pushManager.onStartup(activity);
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -182,7 +180,11 @@ class PushWoosh
     public int PushWooshNotificationUnRegister(Activity activity)
     {
 		mainActivity = activity;
-        GCMRegistrar.unregister(mainActivity);
+		if(pushManager != null)
+		{
+        	pushManager.unregister();
+        }
+
         return 0;
     }
     
@@ -194,13 +196,17 @@ class PushWoosh
 
     public int startGeoPushes()
     {
-		PushManager.startTrackingGeoPushes(mainActivity);
+    	if(pushManager != null)
+			pushManager.startTrackingGeoPushes();
+
 		return 0;
     }
 
     public int stopGeoPushes()
     {
-		PushManager.stopTrackingGeoPushes(mainActivity);
+    	if(pushManager != null)
+			pushManager.stopTrackingGeoPushes();
+		
 		return 0;
     }
 	
