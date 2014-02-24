@@ -4,13 +4,8 @@
 //  (c) Pushwoosh 2012
 //
 
-#import "PushRuntime.h"
 #import "PushNotificationManager.h"
 #import <objc/runtime.h>
-
-#if ! __has_feature(objc_arc)
-#error "ARC is required to compile Pushwoosh SDK"
-#endif
 
 extern int getPushNotificationMode();
 
@@ -55,6 +50,8 @@ void setIntTag(char * tagName, int tagValue)
 	NSString *tagNameStr = [[NSString alloc] initWithUTF8String:tagName];
 	NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:tagValue], tagNameStr, nil];
 	[[PushNotificationManager pushManager] setTags:dict];
+	
+	[tagNameStr release];
 }
 
 void setStringTag(char * tagName, char * tagValue)
@@ -64,6 +61,9 @@ void setStringTag(char * tagName, char * tagValue)
 	
 	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:tagValueStr, tagNameStr, nil];
 	[[PushNotificationManager pushManager] setTags:dict];
+	
+	[tagNameStr release];
+	[tagValueStr release];
 }
 
 void startLocationTracking()
@@ -114,8 +114,8 @@ void stopLocationTracking()
 - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart
 {
 	NSData *jsonData = [NSJSONSerialization dataWithJSONObject:pushNotification options:0 error:nil];
-	NSString *jsonRequestData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-
+    NSString *jsonRequestData = [[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] autorelease];
+	
 	const char * str = [jsonRequestData UTF8String];
 	
 	if(!g_listenerName) {
