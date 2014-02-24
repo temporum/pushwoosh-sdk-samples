@@ -37,7 +37,7 @@ if {{ not defined IW_MKF_IWCRT}}
 #Include the extension's jar file during deployment
 deployments
 {
-    android-external-jars="pushwoosh.jar,lib/android/s3ePushWoosh.jar"
+    android-external-jars="Pushwoosh.jar,lib/android/s3ePushWoosh.jar"
     android-so="lib/android/libs3ePushWoosh.so"
 }
 
@@ -45,7 +45,12 @@ deployments
 #lines will cause the extension builder to re-output this section.
 deployments
 {
-    #iphone-link-opts="-framework X" #Use this to bring in any additional link options needed
+    #Use this to bring in any additional link options needed
+    iphone-link-opts="-weak_framework Security"
+    iphone-link-opts="-weak_framework CoreLocation"
+    iphone-link-lib="Pushwoosh"
+    iphone-link-libdir="Pushwoosh/"
+
     iphone-link-lib="s3ePushWoosh"
     iphone-link-libdir="lib/iphone"
 }
