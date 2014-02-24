@@ -38,7 +38,7 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-		<module platform="android" version="1.0">com.arellomobie.push</module>
+		<module platform="android" version="1.0">com.arellomobile.push</module>
 	</modules>
     <deployment-targets>
         <target device="iphone">false</target>

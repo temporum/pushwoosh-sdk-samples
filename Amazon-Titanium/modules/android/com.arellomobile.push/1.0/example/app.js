@@ -15,7 +15,7 @@ win.open();
 var pushnotifications = require('com.arellomobile.push');
 Ti.API.info("module is => " + pushnotifications);
 	
-pushnotifications.pushNotificationsRegister("", "A0443-C41F6", {
+pushnotifications.pushNotificationsRegister("GOOGLE_PROJECT_ID", "PUSHWOOSH_APP_ID", {
 	//NOTE: all the functions fire on the background thread, do not use any UI or Alerts here
 	success:function(e)
 	{
@@ -30,3 +30,4 @@ pushnotifications.pushNotificationsRegister("", "A0443-C41F6", {
 		Ti.API.info('JS message event: ' + JSON.stringify(e.data));
 	}
 });
+
