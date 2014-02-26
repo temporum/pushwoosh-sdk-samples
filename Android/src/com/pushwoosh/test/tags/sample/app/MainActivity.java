@@ -72,6 +72,9 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 		PushManager pushManager = new PushManager(this, APP_ID, SENDER_ID);
 		pushManager.onStartup(this);
 		
+		//The commented code below shows how to use geo pushes
+		//pushManager.startTrackingGeoPushes();
+		
 		//The commented code below shows how to use local notifications
 		//PushManager.clearLocalNotifications(this);
 		
