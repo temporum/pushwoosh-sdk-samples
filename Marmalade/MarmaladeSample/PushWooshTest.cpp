@@ -41,6 +41,10 @@ int main()
 		s3ePushWooshRegister(S3E_PUSHWOOSH_REGISTRATION_ERROR, (s3eCallback)&OnPushRegisterError, 0);
 
 		s3ePushWooshNotificationRegister();
+
+        s3ePushWooshStartLocationTracking();
+        
+        s3ePushWooshNotificationSetBadgeNumber(6);
 		
 		//Sample code for using local notifications
 		//Currently this is available for Android only. You can use default Marmalade extension for iOS local notifications at this time.
