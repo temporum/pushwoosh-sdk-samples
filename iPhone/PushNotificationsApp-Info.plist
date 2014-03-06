@@ -38,6 +38,10 @@
 	<true/>
 	<key>Pushwoosh_APPID</key>
 	<string>A6C3E-A0F27</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

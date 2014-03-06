@@ -53,4 +53,22 @@
 	return (AppDelegate *) [UIApplication sharedApplication].delegate;
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSDictionary *pushDict = [userInfo objectForKey:@"aps"];
+    BOOL isSilentPush = [[pushDict objectForKey:@"content-available"] boolValue];
+    
+    if (isSilentPush) {
+        NSLog(@"Silent push notification:%@", userInfo);
+        
+        //load content here
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+    }
+    else {
+        [[PushNotificationManager pushManager] handlePushReceived:userInfo];
+        
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
+}
+
 @end
