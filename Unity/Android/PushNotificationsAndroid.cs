@@ -1,5 +1,7 @@
 using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PushNotificationsAndroid : MonoBehaviour {
 
@@ -43,6 +45,18 @@ public class PushNotificationsAndroid : MonoBehaviour {
 		pushwoosh.Call("setStringTag", tagName, tagValue);
 	}
 
+	public void setListTag(string tagName, List<object> tagValues)
+	{
+		AndroidJavaObject tags = new AndroidJavaObject ("com.arellomobile.android.push.TagValues");
+
+		foreach( var tagValue in tagValues )
+		{
+			tags.Call ("addValue", tagValue);
+		}
+
+		pushwoosh.Call ("setListTag", tagName, tags);
+	}
+	
 	public void sendLocation(double lat, double lon)
 	{
 		pushwoosh.Call("sendLocation", lat, lon);
