@@ -26,7 +26,8 @@ namespace PushWooshSample
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private PushApplicationService service;
+        private NotificationService service;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -43,59 +44,11 @@ namespace PushWooshSample
         }
 
 
-        private void ContentGet(string content)
-        {
-            try
-            {
-
-                XmlDocument tileXml = new XmlDocument();
-                tileXml.LoadXml(content);
-
-                XmlNodeList images = tileXml.GetElementsByTagName("image");
-                if (images.Count>0)
-                {
-                    foreach (XmlElement item in images)
-                    {
-                        string imgSource = item.GetAttributeNode("src").Value.ToString();
-                        ImagePush.Source = new Windows.UI.Xaml.Media.Imaging.BitmapImage(new Uri(this.BaseUri, imgSource));
-                    }
-                }
-
-                String texts = tileXml.InnerText;
-                Text1Text.Text = texts;
-
-                XmlNodeList badges = tileXml.ChildNodes;
-                if (badges.Count>0)
-                {
-                    foreach (XmlElement item in badges)
-                    {
-                        string badgeContent = item.GetAttributeNode("value").Value.ToString();
-                        Text1Text.Text += "badge: " + badgeContent;
-                    }
-                }
-                
-
-
-            }
-            catch
-            {
-                Text1Text.Text = "can't display push content";
-
-            }
-
-        }
-
-        void NotificationService_OnPushAccepted(object sender, PushSDK.Classes.CustomEventArgs<string> e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             if (service != null)
             {
-                if (service.NotificationService != null)
-                service.NotificationService.GeoZone.Start();
+                service.StartGeoLocation();
             }
 
         }
@@ -104,8 +57,7 @@ namespace PushWooshSample
         {
             if (service != null)
             {
-                if (service.NotificationService != null)
-                    service.NotificationService.GeoZone.Stop();
+                service.StopGeoLocation();
             }
         }
 
@@ -113,8 +65,7 @@ namespace PushWooshSample
         {
             if (service != null)
             {
-                if (service.NotificationService != null)
-                    service.NotificationService.UnsubscribeFromPushes();
+                service.UnsubscribeFromPushes();
             }
             SubButton.IsEnabled = true; ;
             UnSubButton.IsEnabled = false;
@@ -123,22 +74,19 @@ namespace PushWooshSample
 
         private void btnSendTag_Click(object sender, RoutedEventArgs e)
         {
-            var tagsList = new List<KeyValuePair<string, object>>();
-
             object value;
-            int iValue;
-            if (int.TryParse(tbTagValue.Text, out iValue))
-                value = iValue;
-            else if (tbTagValue.Text.IndexOf(',') != -1)
+
+            if (tbTagValue.Text.IndexOf(',') != -1)
                 value = tbTagValue.Text.Replace(", ", ",").Split(',');
             else
                 value = tbTagValue.Text;
 
-            tagsList.Add(new KeyValuePair<string, object>(tbTagTitle.Text, value));
+            object[] Values = new object[] { value };
+            string[] Keys = new string[] { tbTagTitle.Text };
+
             if (service != null)
             {
-                if (service.NotificationService != null)
-                    service.NotificationService.Tags.SendRequest(tagsList);
+                service.SendTag(Keys, Values);
             }
         }
 
@@ -153,83 +101,30 @@ namespace PushWooshSample
             }
         }
 
-        private void tileClick(object sender, RoutedEventArgs e)
-        {
-            var LiveTile = @"<tile> 
-                                <visual version=""1""> 
-                                 <binding template=""TileWideImageAndText01"">
-                                    <image id=""1"" src=""Background.png"" alt=""alt text""/>
-                                    <text id=""1"">Push Woosh</text>
-                                 </binding> 
-                                 <binding template=""TileSquarePeekImageAndText02"">
-                                    <image id=""1"" src=""Background.png"" alt=""alt text""/>
-                                    <text id=""1"">Push Woosh</text>
-                                    <text id=""2"">Push Woosh Tile Test</text>
-                                  </binding> 
-                                </visual> 
-                              </tile>";
-            NotificationText.Text =LiveTile.ToString();
-        }
-
-        private void tostClick(object sender, RoutedEventArgs e)
-        {
-            var ToastTile = @"<toast>
-                                <visual>
-                                    <binding template=""ToastImageAndText02"">
-                                        <image id=""1"" src=""Background.png"" alt=""image1""/>
-                                        <text id=""1"">headlineText</text>
-                                        <text id=""2"">bodyText</text>
-                                    </binding>  
-                                </visual>
-                            </toast>";
-            NotificationText.Text = ToastTile;
-        }
-
-        private void badgeClick(object sender, RoutedEventArgs e)
-        {
-            var BadgeTile = @"<badge value=""alarm""/>";
-            NotificationText.Text = BadgeTile.ToString();
-        }
 
         private void Subscribe_Tapped(object sender_, TappedRoutedEventArgs e)
         {
             try
             {
+
+                string _PWId = PWID.Text;
+                service = PushSDK.NotificationService.GetCurrent(_PWId, "", null);
                 if (Host.Text.EndsWith("/"))
                 {
-                    PushSDK.Constants.setHost(Host.Text);
+                    service.SetHost(Host.Text);
                 }
                 else
                 {
-                    PushSDK.Constants.setHost(Host.Text+"/");
+                    service.SetHost(Host.Text + "/");
                 }
-                string _PWId = PWID.Text;
-                service = new PushApplicationService(_PWId, "", new List<string>(), "");
-                service.Subscribe();
-              
-                service.NotificationService.Tags.OnError += (sender, args) =>
-                {
-                    MessageDialog dialog = new MessageDialog("Error while sending the tags: \n" + args.Result);
-                    dialog.ShowAsync();
-                };
-                service.NotificationService.Tags.OnSendingComplete += (sender, args) =>
-                {
-                    MessageDialog dialog = new MessageDialog("Tag has been sent!");
-                    dialog.ShowAsync();
-                    DisplaySkippedTags(args.Result);
-                };
 
-                service.NotificationService.OnPushTokenUpdated += (sender, args) =>
-                {
-                    tbPushToken.Text = args.Result.ToString();
-                };
+                service.SubscribeToPushService();
 
-                service.NotificationService.OnPushAccepted += (sender, args) =>
+                if (service.PushToken != null)
                 {
-                    ContentGet(service.NotificationService.LastPushContent);
-                };
-                if (service.NotificationService.PushToken != null)
-                    tbPushToken.Text = service.NotificationService.PushToken;
+                    tbPushToken.Text = service.PushToken;
+                    service.addTagEvents();
+                }
 
                 SubButton.IsEnabled = false;
                 UnSubButton.IsEnabled = true;
@@ -239,7 +134,7 @@ namespace PushWooshSample
                 MessageDialog dialog = new MessageDialog("Host does not exist: \n" + ex.Message);
                 dialog.ShowAsync();
             }
- 
+
         }
 
 
