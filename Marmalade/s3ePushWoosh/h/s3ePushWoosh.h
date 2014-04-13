@@ -96,7 +96,7 @@ s3eResult s3ePushWooshNotificationSetStringTag(const char * tagName, const char 
 s3eResult s3ePushWooshNotificationSetBadgeNumber(int badgeValue);
 
 /**
- * This method have been implemented for Android only. Yet.
+ * These methods have been implemented for Android only. Yet.
  */
 s3eResult s3ePushWooshClearLocalNotifications();
 
