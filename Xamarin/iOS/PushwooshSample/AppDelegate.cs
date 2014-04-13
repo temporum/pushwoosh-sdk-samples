@@ -36,6 +36,12 @@ namespace PushwooshSample
 			UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge;
 			UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
 
+			if (options != null) {
+				if (options.ContainsKey (UIApplication.LaunchOptionsRemoteNotificationKey)) { 
+					pushmanager.HandlePushReceived (options);
+				}
+			}
+
 			pushmanager.StartLocationTracking ();
 
 			return true;
@@ -48,15 +54,15 @@ namespace PushwooshSample
 
 		public override void FailedToRegisterForRemoteNotifications (UIApplication application , NSError error)
 		{
+			Console.WriteLine ("Error: " + error);
 			PushNotificationManager.PushManager.HandlePushRegistrationFailure (error);
 		}
 
 		[Export ("application:didReceiveRemoteNotification:")]
-		public void DidReceiveRemoteNotification (NSDictionary userInfo) 
+		public void DidReceiveRemoteNotification (UIApplication application, NSDictionary userInfo)
 		{
 			PushNotificationManager.PushManager.HandlePushReceived (userInfo);
 		}
-	
 	}
 }
 

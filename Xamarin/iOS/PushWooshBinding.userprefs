@@ -1,25 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.iPhone 5" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PushwooshSample/Info.plist">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhoneRetina.7.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PushwooshSample/AppDelegate.cs">
     <Files>
-      <File FileName="PushwooshSample/Info.plist" />
-      <File FileName="PushWooshBinding/PushNotificationManager.linkwith.cs" Line="5" Column="1" />
+      <File FileName="PushWooshBinding/ApiDefinition.cs" Line="9" Column="2" />
+      <File FileName="PushwooshSample/AppDelegate.cs" Line="26" Column="37" />
+      <File FileName="PushwooshSample/Main.cs" Line="1" Column="1" />
+      <File FileName="PushWooshBinding/libXamarinPWNoRuntime.linkwith.cs" Line="4" Column="49" />
+      <File FileName="PushWooshBinding/PushNotificationManager.linkwith.cs" Line="4" Column="31" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="PushWooshBinding" expanded="True">
-            <Node name="PushNotificationManager.a" expanded="True" />
-          </Node>
-          <Node name="PushwooshSample" expanded="True">
-            <Node name="Info.plist" selected="True" />
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="ClassPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
