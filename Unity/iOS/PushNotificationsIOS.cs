@@ -1,8 +1,20 @@
 using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 public class PushNotificationsIOS : MonoBehaviour {
+
+	//
+	//private methods
+	//
+
+	[System.Runtime.InteropServices.DllImport("__Internal")]
+	extern static private void internalSendStringTags (string tagName, string[] tags);
+
+	//
+	//public
+	//
 
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void registerForRemoteNotifications();
@@ -18,12 +30,28 @@ public class PushNotificationsIOS : MonoBehaviour {
 
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void setStringTag(string tagName, string tagValue);
-
+	
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void startLocationTracking();
 
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void stopLocationTracking();
+
+	static public void setListTag(string tagName, List<object> tagValues)
+	{
+		List <string> stringTags = new List<string>();
+
+		foreach (object tagValue in tagValues) {
+			string stringTag = tagValue.ToString();
+
+			if (stringTag != null)
+				stringTags.Add(stringTag);
+		}
+
+		string[] array = stringTags.ToArray();
+
+		internalSendStringTags (tagName, array);
+	}
 
 	// Use this for initialization
 	void Start () {

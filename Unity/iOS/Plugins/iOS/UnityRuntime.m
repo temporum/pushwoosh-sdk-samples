@@ -66,6 +66,31 @@ void setStringTag(char * tagName, char * tagValue)
 	[tagValueStr release];
 }
 
+void internalSendStringTags (char * tagName, char** tags) {
+    size_t length = 0;
+    while (tags[length] != NULL) length++;
+    
+    NSMutableArray *tagsArray = [NSMutableArray array];
+    NSString *tagNameStr = [[NSString alloc] initWithUTF8String:tagName];
+    
+    for (int i = 0; i < length; i++) {
+        char *tagValue = tags[i];
+        NSString *tagValueStr = [[NSString alloc] initWithUTF8String:tagValue];
+        
+        if (tagValueStr) {
+            [tagsArray addObject:tagValueStr];
+        }
+        
+        [tagValueStr release];
+    }
+    
+    if (tagsArray.count) {
+        [[PushNotificationManager pushManager] setTags:@{tagNameStr : tagsArray}];
+    }
+    
+    [tagNameStr release];
+}
+
 void startLocationTracking()
 {
 	[[PushNotificationManager pushManager] startLocationTracking];
