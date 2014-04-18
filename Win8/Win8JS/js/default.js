@@ -48,12 +48,17 @@ function subscribeClick(mouseEvent) {
         var id = document.getElementById('PwAppId').value;
         var service = new PushSDK.NotificationService.getCurrent(id, "", null);
         service.setHost(host);
+
+        service.ononpushaccepted = function (args) {
+            var md = new Windows.UI.Popups.MessageDialog(args.toString());
+            md.showAsync()
+        }
+
         service.subscribeToPushService();
 
         var fieldNameElement = document.getElementById('userToken');
         if (fieldNameElement.firstChild) {
             fieldNameElement.firstChild.nodeValue = service.pushToken;
-            service.addTagEvents();
         }
 
     }
@@ -64,7 +69,6 @@ function subscribeClick(mouseEvent) {
         var md = new Windows.UI.Popups.MessageDialog(txt);
         md.showAsync()
     }
-
 }
 
 var showProgress = function () {
