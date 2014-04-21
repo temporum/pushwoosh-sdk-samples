@@ -79,6 +79,8 @@ s3eBool s3ePushWooshNotificationsAvailable();
  */
 s3eResult s3ePushWooshNotificationRegister();
 
+s3eResult s3ePushWooshNotificationRegisterWithPWAppID(const char * pushwooshAppId);
+
 /**
  * Returns push notifications token if available
  */

@@ -26,6 +26,7 @@ typedef  s3eResult(*s3ePushWooshRegister_t)(s3ePushWooshCallback cbid, s3eCallba
 typedef  s3eResult(*s3ePushWooshUnRegister_t)(s3ePushWooshCallback cbid, s3eCallback fn);
 typedef    s3eBool(*s3ePushWooshNotificationsAvailable_t)();
 typedef  s3eResult(*s3ePushWooshNotificationRegister_t)();
+typedef  s3eResult(*s3ePushWooshNotificationRegisterWithPWAppID_t)(const char * pushwooshAppId);
 typedef     char *(*s3ePushWooshGetToken_t)();
 typedef  s3eResult(*s3ePushWooshNotificationUnRegister_t)();
 typedef  s3eResult(*s3ePushWooshNotificationSetIntTag_t)(const char * tagName, int tagValue);
@@ -46,6 +47,7 @@ typedef struct s3ePushWooshFuncs
     s3ePushWooshUnRegister_t m_s3ePushWooshUnRegister;
     s3ePushWooshNotificationsAvailable_t m_s3ePushWooshNotificationsAvailable;
     s3ePushWooshNotificationRegister_t m_s3ePushWooshNotificationRegister;
+    s3ePushWooshNotificationRegisterWithPWAppID_t m_s3ePushWooshNotificationRegisterWithPWAppID;
     s3ePushWooshGetToken_t m_s3ePushWooshGetToken;
     s3ePushWooshNotificationUnRegister_t m_s3ePushWooshNotificationUnRegister;
     s3ePushWooshNotificationSetIntTag_t m_s3ePushWooshNotificationSetIntTag;
@@ -181,9 +183,29 @@ s3eResult s3ePushWooshNotificationRegister()
     return ret;
 }
 
+s3eResult s3ePushWooshNotificationRegisterWithPWAppID(const char * pushwooshAppId)
+{
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[4] func: s3ePushWooshNotificationRegisterWithPWAppID"));
+
+    if (!_extLoad())
+        return S3E_RESULT_SUCCESS;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    s3eResult ret = g_Ext.m_s3ePushWooshNotificationRegisterWithPWAppID(pushwooshAppId);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return ret;
+}
+
 char * s3ePushWooshGetToken()
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[4] func: s3ePushWooshGetToken"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[5] func: s3ePushWooshGetToken"));
 
     if (!_extLoad())
         return 0;
@@ -203,7 +225,7 @@ char * s3ePushWooshGetToken()
 
 s3eResult s3ePushWooshNotificationUnRegister()
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[5] func: s3ePushWooshNotificationUnRegister"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[6] func: s3ePushWooshNotificationUnRegister"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;
@@ -223,7 +245,7 @@ s3eResult s3ePushWooshNotificationUnRegister()
 
 s3eResult s3ePushWooshNotificationSetIntTag(const char * tagName, int tagValue)
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[6] func: s3ePushWooshNotificationSetIntTag"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[7] func: s3ePushWooshNotificationSetIntTag"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;
@@ -243,7 +265,7 @@ s3eResult s3ePushWooshNotificationSetIntTag(const char * tagName, int tagValue)
 
 s3eResult s3ePushWooshNotificationSetStringTag(const char * tagName, const char * tagValue)
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[7] func: s3ePushWooshNotificationSetStringTag"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[8] func: s3ePushWooshNotificationSetStringTag"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;
@@ -263,7 +285,7 @@ s3eResult s3ePushWooshNotificationSetStringTag(const char * tagName, const char 
 
 s3eResult s3ePushWooshNotificationSetBadgeNumber(int badgeValue)
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[8] func: s3ePushWooshNotificationSetBadgeNumber"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[9] func: s3ePushWooshNotificationSetBadgeNumber"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;
@@ -283,7 +305,7 @@ s3eResult s3ePushWooshNotificationSetBadgeNumber(int badgeValue)
 
 s3eResult s3ePushWooshClearLocalNotifications()
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[9] func: s3ePushWooshClearLocalNotifications"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[10] func: s3ePushWooshClearLocalNotifications"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;
@@ -303,7 +325,7 @@ s3eResult s3ePushWooshClearLocalNotifications()
 
 s3eResult s3ePushWooshStartLocationTracking()
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[10] func: s3ePushWooshStartLocationTracking"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[11] func: s3ePushWooshStartLocationTracking"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;
@@ -323,7 +345,7 @@ s3eResult s3ePushWooshStartLocationTracking()
 
 s3eResult s3ePushWooshStopLocationTracking()
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[11] func: s3ePushWooshStopLocationTracking"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[12] func: s3ePushWooshStopLocationTracking"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;
@@ -343,7 +365,7 @@ s3eResult s3ePushWooshStopLocationTracking()
 
 s3eResult s3ePushWooshScheduleLocalNotification(const char * message, int seconds, const char * userdata)
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[12] func: s3ePushWooshScheduleLocalNotification"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[13] func: s3ePushWooshScheduleLocalNotification"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;
@@ -363,7 +385,7 @@ s3eResult s3ePushWooshScheduleLocalNotification(const char * message, int second
 
 s3eResult s3ePushWooshSetAndroidNotificationMultiMode(bool enable)
 {
-    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[13] func: s3ePushWooshSetAndroidNotificationMultiMode"));
+    IwTrace(PUSHWOOSH_VERBOSE, ("calling s3ePushWoosh[14] func: s3ePushWooshSetAndroidNotificationMultiMode"));
 
     if (!_extLoad())
         return S3E_RESULT_SUCCESS;

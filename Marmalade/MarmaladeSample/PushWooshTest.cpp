@@ -4,6 +4,7 @@
 #include <string>
 
 std::string message;
+std::string PW_APPID="FE8B7-77BD4";
 
 int32 OnPushRegistered(char* token, void* userData)
 {
@@ -40,12 +41,13 @@ int main()
 		s3ePushWooshRegister(S3E_PUSHWOOSH_MESSAGE_RECEIVED, (s3eCallback)&OnPushReceived, 0);
 		s3ePushWooshRegister(S3E_PUSHWOOSH_REGISTRATION_ERROR, (s3eCallback)&OnPushRegisterError, 0);
 
-		s3ePushWooshNotificationRegister();
-
+		//s3ePushWooshNotificationRegister();
+		const char* cstrApp = PW_APPID.c_str();
+		s3ePushWooshNotificationRegisterWithPWAppID(cstrApp);
         s3ePushWooshStartLocationTracking();
         
         s3ePushWooshNotificationSetBadgeNumber(6);
-		
+				
 		//Sample code for using local notifications
 		//Currently this is available for Android only. You can use default Marmalade extension for iOS local notifications at this time.
 		//s3ePushWooshClearLocalNotifications();

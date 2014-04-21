@@ -1,0 +1,17 @@
+#!/usr/bin/env mkb
+subproject ../s3ePushWoosh
+
+files
+{
+    PushWooshTest.cpp
+}
+
+deployments
+{
+	wp8-ext-capabilities="ID_CAP_IDENTITY_DEVICE,ID_CAP_LOCATION,ID_CAP_NETWORKING,ID_CAP_PUSH_NOTIFICATION"
+}
+
+options
+{
+    strict
+}
