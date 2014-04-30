@@ -17,7 +17,7 @@
  under the License.
  */
 //
-// Prefix header for all source files of the 'Phonegap-Push' target in the 'Phonegap-Push' project
+// Prefix header for all source files of the 'PhoneGap-iPhone-Sample' target in the 'PhoneGap-iPhone-Sample' project
 //
 
 #ifdef __OBJC__

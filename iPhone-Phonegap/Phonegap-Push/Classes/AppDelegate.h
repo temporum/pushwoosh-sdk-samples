@@ -19,7 +19,7 @@
 
 //
 //  AppDelegate.h
-//  Phonegap-Push
+//  PhoneGap-Push
 //
 
 #import <UIKit/UIKit.h>
@@ -28,9 +28,9 @@
 
 @interface AppDelegate : NSObject <UIApplicationDelegate>{}
 
-// invoke string is passed to your app on launch, this is only valid if you 
-// edit Phonegap-Push-Info.plist to add a protocol
-// a simple tutorial can be found here : 
+// invoke string is passed to your app on launch, this is only valid if you
+// edit PhoneGap-iPhone-Sample-Info.plist to add a protocol
+// a simple tutorial can be found here :
 // http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
 
 @property (nonatomic, strong) IBOutlet UIWindow* window;

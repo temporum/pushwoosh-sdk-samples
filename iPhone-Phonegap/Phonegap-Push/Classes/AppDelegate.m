@@ -19,7 +19,7 @@
 
 //
 //  AppDelegate.m
-//  Phonegap-Push
+//  PhoneGap-Push
 //
 
 #import "AppDelegate.h"
@@ -58,7 +58,6 @@
 /**
  * This is main kick off after the app inits, the views and Settings are setup here. (preferred - iOS4 and up)
  */
-
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -90,7 +89,7 @@
 }
 
 // this happens while we are running ( in the background, or from within our own app )
-// only valid if Phonegap-Push-Info.plist specifies a protocol to handle
+// only valid if PhoneGap-iPhone-Sample-Info.plist specifies a protocol to handle
 - (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)url
 {
     if (!url) {

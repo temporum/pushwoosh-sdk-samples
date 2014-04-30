@@ -19,7 +19,7 @@
 
 //
 //  MainViewController.h
-//  Phonegap-Push
+//  PhoneGap-Push
 //
 
 #import "MainViewController.h"

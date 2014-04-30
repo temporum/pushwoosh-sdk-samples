@@ -18,7 +18,7 @@
  */
 //
 //  main.m
-//  Phonegap-Push
+//  PhoneGap-Push
 //
 
 #import <UIKit/UIKit.h>
