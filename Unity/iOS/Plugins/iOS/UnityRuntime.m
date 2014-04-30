@@ -96,6 +96,11 @@ void startLocationTracking()
 	[[PushNotificationManager pushManager] startLocationTracking];
 }
 
+void clearNotificationCenter()
+{
+	[PushNotificationManager clearNotificationCenter];
+}
+
 void stopLocationTracking()
 {
 	[[PushNotificationManager pushManager] stopLocationTracking];

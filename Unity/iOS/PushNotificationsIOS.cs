@@ -37,6 +37,9 @@ public class PushNotificationsIOS : MonoBehaviour {
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void stopLocationTracking();
 
+	[System.Runtime.InteropServices.DllImport("__Internal")]
+	extern static public void clearNotificationCenter();
+
 	static public void setListTag(string tagName, List<object> tagValues)
 	{
 		List <string> stringTags = new List<string>();
