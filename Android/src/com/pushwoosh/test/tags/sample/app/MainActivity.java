@@ -28,9 +28,6 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 {
 	private static final String SEND_TAGS_STATUS_FRAGMENT_TAG = "send_tags_status_fragment_tag";
 
-	private static final String APP_ID = "4FC89B6D14A655.46488481";
-	private static final String SENDER_ID = "60756016005";
-
 	private TextView mTagsStatus;
 	private EditText mIntTags;
 	private EditText mStringTags;
@@ -67,10 +64,20 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 		
 		//Register receivers for push notifications
 		registerReceivers();
+		
+		PushManager pushManager = PushManager.getInstance(this);
 
-		//Create and start push manager
-		PushManager pushManager = new PushManager(this, APP_ID, SENDER_ID);
-		pushManager.onStartup(this);
+		//Start push manager, this will count app open for Pushwoosh stats as well
+		try {
+			pushManager.onStartup(this);
+		}
+		catch(Exception e)
+		{
+			//push notifications are not available or AndroidManifest.xml is not configured properly
+		}
+		
+		//Register for push!
+		pushManager.registerForPushNotifications();
 		
 		//The commented code below shows how to use geo pushes
 		//pushManager.startTrackingGeoPushes();
@@ -92,6 +99,7 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 		mIntTags = (EditText) findViewById(R.id.tag_int);
 		mStringTags = (EditText) findViewById(R.id.tag_string);
 
+		//Check for start push notification in the Intent payload
 		checkMessage(getIntent());
 
 		mSubmitTagsButton = (Button) findViewById(R.id.submit_tags);

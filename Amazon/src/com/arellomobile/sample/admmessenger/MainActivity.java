@@ -42,11 +42,22 @@ public class MainActivity extends Activity
 	    //Register receivers for push notifications
 	    registerReceivers();
 
-	    //Create and start push manager
-	    PushManager pushManager = new PushManager(this, "4F0C807E51EC77.93591449", "");
-	    pushManager.onStartup(this);
+	    //Get push manager instance
+	    PushManager pushManager = PushManager.getInstance(this);
+		
+		//Start push manager, this will count app open for Pushwoosh stats as well
+		try {
+			pushManager.onStartup(this);
+		}
+		catch(Exception e)
+		{
+			//push notifications are not available or AndroidManifest.xml is not configured properly
+		}
 
 	    PushManager.setSimpleNotificationMode(this);
+
+		//Register for push!
+		pushManager.registerForPushNotifications();
 
 	    checkMessage(getIntent());
     }
