@@ -48,14 +48,10 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Xamarin.ObjcBinding.CSharp.targets" />
   <ItemGroup>
     <ObjcBindingNativeLibrary Include="PushNotificationManager.a" />
-    <ObjcBindingNativeLibrary Include="libXamarinPWNoRuntime.a" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PushNotificationManager.linkwith.cs">
       <DependentUpon>PushNotificationManager.a</DependentUpon>
-    </Compile>
-    <Compile Include="libXamarinPWNoRuntime.linkwith.cs">
-      <DependentUpon>libXamarinPWNoRuntime.a</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
