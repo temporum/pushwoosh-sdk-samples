@@ -41,7 +41,7 @@
                 <key>UIRequiresPersistentWiFi</key>
                 <string>YES</string>
                 <key>Pushwoosh_APPID</key>
-            	<string>4F0C807E51EC77.93591449</string>
+            	<string>539E9-AB8AE</string>
             ]]>
         </InfoAdditions> 
 		 <Entitlements>
