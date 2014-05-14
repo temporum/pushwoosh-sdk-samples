@@ -37,11 +37,40 @@
         NSLog(@"Asset to download: %@",asset);
         [asset downloadWithDelegate:store];
     }
-    
+	
+    //-----------PUSHWOOSH PART-----------
+	// set custom delegate for push handling, in our case - view controller
+	PushNotificationManager * pushManager = [PushNotificationManager pushManager];
+	pushManager.delegate = self;
+	
+	// handling push on app start
+	[[PushNotificationManager pushManager] handlePushReceived:launchOptions];
+	
+	// make sure we count app open in Pushwoosh stats
+	[[PushNotificationManager pushManager] sendAppOpen];
+	
+	// register for push notifications!
+	[[PushNotificationManager pushManager] registerForPushNotifications];
+	
     return YES;
 }
 
-// Deletage from Pushwoosh SDK, it is initialized by PushRuntime and gets called automatically when push notifications has been received
+// system push notification registration success callback, delegate to pushManager
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+	[[PushNotificationManager pushManager] handlePushRegistration:deviceToken];
+}
+
+// system push notification registration error callback, delegate to pushManager
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+	[[PushNotificationManager pushManager] handlePushRegistrationFailure:error];
+}
+
+// system push notifications callback, delegate to pushManager
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	[[PushNotificationManager pushManager] handlePushReceived:userInfo];
+}
+
+// Delegate from Pushwoosh SDK
 - (void)onPushReceived:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
 	[self handlePushAndDownloadNewContent:pushNotification];
 }

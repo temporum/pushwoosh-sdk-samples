@@ -11,14 +11,14 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
-		433F2EFF18AB30CB00614B57 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 433F2EFE18AB30CB00614B57 /* Security.framework */; };
 		4379584B187D560C003E9430 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4379584A187D560C003E9430 /* CoreLocation.framework */; };
-		4379584F187D561F003E9430 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4379584E187D561F003E9430 /* MessageUI.framework */; };
 		43B0F41B187D5BCA00FA9139 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B0F41A187D5BCA00FA9139 /* Pushwoosh.framework */; };
+		500EEB1B19213CEE00AEC638 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500EEB1A19213CEE00AEC638 /* Security.framework */; };
 		50A9809015E7AC2F003579A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A9808F15E7AC2F003579A4 /* ViewController.m */; };
 		50A9809315E7ACB6003579A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A9809215E7ACB6003579A4 /* AppDelegate.m */; };
 		50A9809915E7AD67003579A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50A9809515E7AD67003579A4 /* InfoPlist.strings */; };
 		50A9809A15E7AD67003579A4 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50A9809715E7AD67003579A4 /* ViewController.xib */; };
+		50D349BB1920C03B0000F071 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D349BA1920C03B0000F071 /* StoreKit.framework */; };
 		50F4B0791641438D00424547 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4B0781641438D00424547 /* logo.png */; };
 		5D5896D7182BA17C00D6C9D1 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5896CF182BA17C00D6C9D1 /* 57.png */; };
 		5D5896DA182BA17C00D6C9D1 /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5896D2182BA17C00D6C9D1 /* 114.png */; };
@@ -40,16 +40,16 @@
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* PushNotificationsApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationsApp_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		433F2EFE18AB30CB00614B57 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4379584A187D560C003E9430 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		4379584E187D561F003E9430 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		43B0F41A187D5BCA00FA9139 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pushwoosh.framework; sourceTree = "<group>"; };
+		500EEB1A19213CEE00AEC638 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		50A9808E15E7AC2F003579A4 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		50A9808F15E7AC2F003579A4 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		50A9809115E7ACB6003579A4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		50A9809215E7ACB6003579A4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		50A9809615E7AD67003579A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		50A9809815E7AD67003579A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = ViewController.xib; sourceTree = "<group>"; };
+		50D349BA1920C03B0000F071 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		50F4B0781641438D00424547 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		5D5896CF182BA17C00D6C9D1 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
 		5D5896D2182BA17C00D6C9D1 /* 114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114.png; sourceTree = "<group>"; };
@@ -71,9 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				433F2EFF18AB30CB00614B57 /* Security.framework in Frameworks */,
+				500EEB1B19213CEE00AEC638 /* Security.framework in Frameworks */,
+				50D349BB1920C03B0000F071 /* StoreKit.framework in Frameworks */,
 				43B0F41B187D5BCA00FA9139 /* Pushwoosh.framework in Frameworks */,
-				4379584F187D561F003E9430 /* MessageUI.framework in Frameworks */,
 				4379584B187D560C003E9430 /* CoreLocation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -147,9 +147,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				433F2EFE18AB30CB00614B57 /* Security.framework */,
+				500EEB1A19213CEE00AEC638 /* Security.framework */,
+				50D349BA1920C03B0000F071 /* StoreKit.framework */,
 				43B0F41A187D5BCA00FA9139 /* Pushwoosh.framework */,
-				4379584E187D561F003E9430 /* MessageUI.framework */,
 				4379584A187D560C003E9430 /* CoreLocation.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
