@@ -18,40 +18,56 @@
  */
 
 function initPushwoosh() {
+	
 	var pushNotification = window.plugins.pushNotification;
-	pushNotification.onDeviceReady();
-    
-	pushNotification.registerDevice({alert:true, badge:true, sound:true, pw_appid:"736A4-2F7B8", appname:"!devapp"},
-									function(status) {
-                                    var deviceToken = status['deviceToken'];
-                                    console.warn('registerDevice: ' + deviceToken);
+	
+	//set push notification callback before we initialize the plugin
+	document.addEventListener('push-notification', function(event) {
+								//get the notification payload
+								var notification = event.notification;
+
+								//display alert to the user for example
+								alert(notification.aps.alert);
+							  
+								//clear the app badge
+								pushNotification.setApplicationIconBadgeNumber(0);
+							});
+
+	
+    //initialize the plugin
+    pushNotification.onDeviceReady({pw_appid:"539E9-AB8AE"});
+
+    //register for pushes
+	pushNotification.registerDevice(function(status) {
+                                        var deviceToken = status['deviceToken'];
+                                        console.warn('registerDevice: ' + deviceToken);
 									},
 									function(status) {
-                                    console.warn('failed to register : ' + JSON.stringify(status));
-                                    navigator.notification.alert(JSON.stringify(['failed to register ', status]));
+                                        console.warn('failed to register : ' + JSON.stringify(status));
+                                        navigator.notification.alert(JSON.stringify(['failed to register ', status]));
 									});
     
 	pushNotification.setApplicationIconBadgeNumber(0);
     
 	pushNotification.getTags(function(tags) {
-                             console.warn('tags for the device: ' + JSON.stringify(tags));
+								console.warn('tags for the device: ' + JSON.stringify(tags));
 							 },
 							 function(error) {
-                             console.warn('get tags error: ' + JSON.stringify(error));
+								console.warn('get tags error: ' + JSON.stringify(error));
 							 });
-    
+
+	pushNotification.getPushToken(function(token) {
+								  console.warn('push token device: ' + token);
+							 });
+
+	pushNotification.getPushwooshHWID(function(token) {
+									console.warn('Pushwoosh HWID: ' + token);
+								});
+
 	//start geo tracking.
     pushNotification.startLocationTracking(function() {
                                            console.warn('Location Tracking Started');
                                            });
-    
-	document.addEventListener('push-notification', function(event) {
-                              var notification = event.notification;
-                              
-                              alert(notification.aps.alert);
-                              
-                              pushNotification.setApplicationIconBadgeNumber(0);
-							  });
 }
 
 var app = {
