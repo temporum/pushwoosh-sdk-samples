@@ -28,6 +28,7 @@ public class PushNotificationsAndroid : MonoBehaviour {
 		pushwoosh = pluginClass.CallStatic<AndroidJavaObject>("instance");
 		
 		pushwoosh.Call("setListenerName", this.gameObject.name);
+		registerForPushNotifications();
 	}
  
 	public void setIntTag(string tagName, int tagValue)
@@ -35,7 +36,12 @@ public class PushNotificationsAndroid : MonoBehaviour {
 		pushwoosh.Call("setIntTag", tagName, tagValue);
 	}
 
-	public void unregisterDevice()
+	public void registerForPushNotifications()
+	{
+		pushwoosh.Call("registerForPushNotifications");
+	}
+
+	public void unregisterForPushNotifications()
 	{
 		pushwoosh.Call("unregisterFromPushNotifications");
 	}
@@ -90,6 +96,11 @@ public class PushNotificationsAndroid : MonoBehaviour {
 	public string getPushToken()
 	{
 		return pushwoosh.Call<string>("getPushToken");
+	}
+
+	public string getPushwooshHWID()
+	{
+		return pushwoosh.Call<string>("getPushwooshHWID");
 	}
 
 	void onRegisteredForPushNotifications(string token)

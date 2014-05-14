@@ -20,10 +20,16 @@ public class PushNotificationsIOS : MonoBehaviour {
 	extern static public void registerForRemoteNotifications();
 
 	[System.Runtime.InteropServices.DllImport("__Internal")]
+	extern static public void unregisterForRemoteNotifications();
+
+	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void setListenerName(string listenerName);
 
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public System.IntPtr _getPushToken();
+
+	[System.Runtime.InteropServices.DllImport("__Internal")]
+	extern static public System.IntPtr _getPushwooshHWID();
 	
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void setIntTag(string tagName, int tagValue);
@@ -67,6 +73,11 @@ public class PushNotificationsIOS : MonoBehaviour {
 	static public string getPushToken()
 	{
 		return Marshal.PtrToStringAnsi(_getPushToken());
+	}
+
+	static public string getPushwooshHWID()
+	{
+		return Marshal.PtrToStringAnsi(_getPushwooshHWID());
 	}
 
 	void onRegisteredForPushNotifications(string token)

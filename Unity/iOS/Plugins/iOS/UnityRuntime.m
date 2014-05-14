@@ -7,15 +7,22 @@
 #import "PushNotificationManager.h"
 #import <objc/runtime.h>
 
-extern int getPushNotificationMode();
-
 void registerForRemoteNotifications() {
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:getPushNotificationMode()];
+	[[PushNotificationManager pushManager] registerForPushNotifications];
+}
+
+void unregisterForRemoteNotifications() {
+	[[PushNotificationManager pushManager] unregisterForPushNotifications];
 }
 
 void * _getPushToken()
 {
 	return (void *)[[[PushNotificationManager pushManager] getPushToken] UTF8String];
+}
+
+void * _getPushwooshHWID()
+{
+	return (void *)[[[PushNotificationManager pushManager] getHWID] UTF8String];
 }
 
 char * g_tokenStr = 0;
@@ -110,6 +117,10 @@ void stopLocationTracking()
 
 - (NSObject<PushNotificationDelegate> *)getPushwooshDelegate {
 	return (NSObject<PushNotificationDelegate> *)[UIApplication sharedApplication];
+}
+
+- (NSObject<PushNotificationDelegate> *)pushwooshUseRuntimeMagic {
+	return YES;
 }
 
 //succesfully registered for push notifications
