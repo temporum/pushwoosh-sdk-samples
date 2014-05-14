@@ -17,12 +17,12 @@
        under the License.
  */
 
-package com.pushwoosh.test;
+package com.phonegap.hello_world;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
 
-public class MyApp extends DroidGap
+public class HelloWorld extends DroidGap
 {
     @Override
     public void onCreate(Bundle savedInstanceState)

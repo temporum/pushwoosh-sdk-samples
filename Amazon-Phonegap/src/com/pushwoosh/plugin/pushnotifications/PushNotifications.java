@@ -47,15 +47,16 @@ public class PushNotifications extends CordovaPlugin
 	public static final String SEND_LOCATION = "sendLocation";
 	public static final String CREATE_LOCAL_NOTIFICATION = "createLocalNotification";
 	public static final String CLEAR_LOCAL_NOTIFICATION = "clearLocalNotification";
-	public static final String ON_DEVICE_READY = "onDeviceReady";
 	public static final String GET_TAGS = "getTags";
-
-	boolean loggedStart = false;
+	public static final String ON_DEVICE_READY = "onDeviceReady";
+	public static final String GET_PUSH_TOKEN = "getPushToken";
+	public static final String GET_HWID = "getPushwooshHWID";
+	
 	boolean receiversRegistered = false;
 
 	HashMap<String, CallbackContext> callbackIds = new HashMap<String, CallbackContext>();
 	PushManager mPushManager = null;
-
+	
 	/**
 	 * Called when the activity receives a new intent.
 	 */
@@ -65,7 +66,7 @@ public class PushNotifications extends CordovaPlugin
 
 		checkMessage(intent);
 	}
-
+	
 	BroadcastReceiver mBroadcastReceiver = new RegisterBroadcastReceiver()
 	{
 		@Override
@@ -74,13 +75,13 @@ public class PushNotifications extends CordovaPlugin
 			checkMessage(intent);
 		}
 	};
-
+	
 	//Registration of the receivers
 	public void registerReceivers()
 	{
-		if (receiversRegistered)
+		if(receiversRegistered)
 			return;
-
+		
 		IntentFilter intentFilter = new IntentFilter(cordova.getActivity().getPackageName() + ".action.PUSH_MESSAGE_RECEIVE");
 
 		//comment this code out if you would like to receive the notifications in the notifications center when the app is in foreground
@@ -88,15 +89,15 @@ public class PushNotifications extends CordovaPlugin
 
 		//registration receiver
 		cordova.getActivity().registerReceiver(mBroadcastReceiver, new IntentFilter(cordova.getActivity().getPackageName() + "." + PushManager.REGISTER_BROAD_CAST_ACTION));
-
+		
 		receiversRegistered = true;
 	}
-
+	
 	public void unregisterReceivers()
 	{
-		if (!receiversRegistered)
+		if(!receiversRegistered)
 			return;
-
+		
 		try
 		{
 			cordova.getActivity().unregisterReceiver(mReceiver);
@@ -105,7 +106,7 @@ public class PushNotifications extends CordovaPlugin
 		{
 			// pass. for some reason Phonegap call this method before onResume. Not Android lifecycle style...
 		}
-
+		
 		try
 		{
 			cordova.getActivity().unregisterReceiver(mBroadcastReceiver);
@@ -114,7 +115,7 @@ public class PushNotifications extends CordovaPlugin
 		{
 			//pass through
 		}
-
+		
 		receiversRegistered = false;
 	}
 
@@ -140,7 +141,7 @@ public class PushNotifications extends CordovaPlugin
 		super.onDestroy();
 	}
 
-	private boolean internalRegister(JSONArray data, CallbackContext callbackContext)
+	private void initialize(JSONArray data, CallbackContext callbackContext)
 	{
 		JSONObject params = null;
 		try
@@ -150,49 +151,40 @@ public class PushNotifications extends CordovaPlugin
 		catch (JSONException e)
 		{
 			e.printStackTrace();
-
-			callbackContext.error(e.getMessage());
-			return true;
+			return;
 		}
-
-		callbackIds.put("registerDevice", callbackContext);
 
 		try
 		{
 			String appid = null;
-			if (params.has("appid"))
+			if(params.has("appid"))
 				appid = params.getString("appid");
 			else
 				appid = params.getString("pw_appid");
-
-			mPushManager = new PushManager(cordova.getActivity(), appid, params.getString("appid"));
+			
+			PushManager.initializePushManager(cordova.getActivity(), appid, params.getString("projectid"));
+			mPushManager = PushManager.getInstance(cordova.getActivity());
+			mPushManager.onStartup(cordova.getActivity());
 		}
-		catch (JSONException e)
+		catch (Exception e)
 		{
-			callbackIds.remove("registerDevice");
 			e.printStackTrace();
-
-			callbackContext.error(e.getMessage());
-			return true;
+			return;
 		}
+	}
 
+	private boolean internalRegister(JSONArray data, CallbackContext callbackContext)
+	{
 		try
 		{
-			if (loggedStart)
-			{
-				mPushManager.onStartup(cordova.getActivity(), false);
-			}
-			else
-			{
-				mPushManager.onStartup(cordova.getActivity(), true);
-				loggedStart = true;
-			}
+			callbackIds.put("registerDevice", callbackContext);
+			mPushManager.registerForPushNotifications();
 		}
 		catch (java.lang.RuntimeException e)
 		{
 			callbackIds.remove("registerDevice");
 			e.printStackTrace();
-
+			
 			callbackContext.error(e.getMessage());
 			return true;
 		}
@@ -253,14 +245,13 @@ public class PushNotifications extends CordovaPlugin
 
 		return true;
 	}
-
-	private boolean internalSendLocation(JSONArray data, CallbackContext callbackContext)
-	{
+	
+	private boolean internalSendLocation(JSONArray data, CallbackContext callbackContext) {
 		if (mPushManager == null)
 		{
 			return false;
 		}
-
+		
 		JSONObject params = null;
 		try
 		{
@@ -271,7 +262,7 @@ public class PushNotifications extends CordovaPlugin
 			e.printStackTrace();
 			return false;
 		}
-
+		
 		double lat = 0;
 		double lon = 0;
 
@@ -285,7 +276,7 @@ public class PushNotifications extends CordovaPlugin
 			e.printStackTrace();
 			return false;
 		}
-
+		
 		Location location = new Location("");
 		location.setLatitude(lat);
 		location.setLongitude(lon);
@@ -351,12 +342,25 @@ public class PushNotifications extends CordovaPlugin
 		//make sure the receivers are on
 		registerReceivers();
 
-		if (ON_DEVICE_READY.equals(action))
+		if(GET_PUSH_TOKEN.equals(action))
 		{
-			checkMessage(cordova.getActivity().getIntent());
+			callbackId.success(PushManager.getPushToken(cordova.getActivity()));
 			return true;
 		}
 
+		if(GET_HWID.equals(action))
+		{
+			callbackId.success(PushManager.getPushwooshHWID(cordova.getActivity()));
+			return true;
+		}
+
+		if(ON_DEVICE_READY.equals(action))
+		{
+			initialize(data, callbackId);
+			checkMessage(cordova.getActivity().getIntent());
+			return true;
+		}
+		
 		if (REGISTER.equals(action))
 		{
 			return internalRegister(data, callbackId);
@@ -371,7 +375,7 @@ public class PushNotifications extends CordovaPlugin
 		{
 			return internalSendTags(data, callbackId);
 		}
-
+		
 		if (SEND_LOCATION.equals(action))
 		{
 			return internalSendLocation(data, callbackId);
@@ -417,15 +421,15 @@ public class PushNotifications extends CordovaPlugin
 				//config params: {msg:"message", seconds:30, userData:"optional"}
 				String message = params.getString("msg");
 				Integer seconds = params.getInt("seconds");
-				if (message == null || seconds == null)
+				if(message == null || seconds == null)
 					return false;
 
 				String userData = params.getString("userData");
-
+				
 				Bundle extras = new Bundle();
-				if (userData != null)
+				if(userData != null)
 					extras.putString("u", userData);
-
+				
 				PushManager.scheduleLocalNotification(cordova.getActivity(), message, extras, seconds);
 			}
 			catch (JSONException e)
@@ -436,33 +440,33 @@ public class PushNotifications extends CordovaPlugin
 
 			return true;
 		}
-
+		
 		if (CLEAR_LOCAL_NOTIFICATION.equals(action))
 		{
 			PushManager.clearLocalNotifications(cordova.getActivity());
 			return true;
 		}
-
-		if ("setMultiNotificationMode".equals(action))
+		
+		if("setMultiNotificationMode".equals(action))
 		{
 			PushManager.setMultiNotificationMode(cordova.getActivity());
 			return true;
 		}
 
-		if ("setSingleNotificationMode".equals(action))
+		if("setSingleNotificationMode".equals(action))
 		{
 			PushManager.setSimpleNotificationMode(cordova.getActivity());
 			return true;
 		}
 
-		if ("setSoundType".equals(action))
+		if("setSoundType".equals(action))
 		{
 			try
 			{
-				Integer type = (Integer) data.get(0);
-				if (type == null)
+				Integer type = (Integer)data.get(0);
+				if(type == null)
 					return false;
-
+				
 				PushManager.setSoundNotificationType(cordova.getActivity(), SoundType.fromInt(type));
 			}
 			catch (Exception e)
@@ -474,14 +478,14 @@ public class PushNotifications extends CordovaPlugin
 			return true;
 		}
 
-		if ("setVibrateType".equals(action))
+		if("setVibrateType".equals(action))
 		{
 			try
 			{
-				Integer type = (Integer) data.get(0);
-				if (type == null)
+				Integer type = (Integer)data.get(0);
+				if(type == null)
 					return false;
-
+				
 				PushManager.setVibrateNotificationType(cordova.getActivity(), VibrateType.fromInt(type));
 			}
 			catch (Exception e)
@@ -493,11 +497,11 @@ public class PushNotifications extends CordovaPlugin
 			return true;
 		}
 
-		if ("setLightScreenOnNotification".equals(action))
+		if("setLightScreenOnNotification".equals(action))
 		{
 			try
 			{
-				boolean type = (boolean) data.getBoolean(0);
+				boolean type = (boolean)data.getBoolean(0);
 				PushManager.setLightScreenOnNotification(cordova.getActivity(), type);
 			}
 			catch (Exception e)
@@ -508,12 +512,12 @@ public class PushNotifications extends CordovaPlugin
 
 			return true;
 		}
-
-		if ("setEnableLED".equals(action))
+		
+		if("setEnableLED".equals(action))
 		{
 			try
 			{
-				boolean type = (boolean) data.getBoolean(0);
+				boolean type = (boolean)data.getBoolean(0);
 				PushManager.setEnableLED(cordova.getActivity(), type);
 			}
 			catch (Exception e)
@@ -526,7 +530,7 @@ public class PushNotifications extends CordovaPlugin
 		}
 
 
-		if ("sendGoalAchieved".equals(action))
+		if("sendGoalAchieved".equals(action))
 		{
 			JSONObject params = null;
 			try
@@ -543,11 +547,11 @@ public class PushNotifications extends CordovaPlugin
 			{
 				//config params: {goal:"goalName", count:30}
 				String goal = params.getString("goal");
-				if (goal == null)
+				if(goal == null)
 					return false;
 
 				Integer count = null;
-				if (params.has("count"))
+				if(params.has("count"))
 					count = params.getInt("count");
 
 				PushManager.sendGoalAchieved(cordova.getActivity(), goal, count);
@@ -560,36 +564,33 @@ public class PushNotifications extends CordovaPlugin
 
 			return true;
 		}
-
-		if (GET_TAGS.equals(action))
+		
+		if(GET_TAGS.equals(action))
 		{
 			callbackIds.put("getTags", callbackId);
-
-			final class GetTagsListenerImpl implements GetTagsListener
-			{
+			
+			final class GetTagsListenerImpl implements GetTagsListener {
 				@Override
-				public void onTagsReceived(Map<String, Object> tags)
-				{
+				public void onTagsReceived(Map<String, Object> tags) {
 					CallbackContext callback = callbackIds.get("getTags");
-					if (callback == null)
+					if(callback == null)
 						return;
-
+					
 					callback.success(new JSONObject(tags));
 					callbackIds.remove("getTags");
 				}
-
+				
 				@Override
-				public void onError(Exception e)
-				{
+				public void onError(Exception e) {
 					CallbackContext callback = callbackIds.get("getTags");
-					if (callback == null)
+					if(callback == null)
 						return;
 
 					callback.error(e.getMessage());
 					callbackIds.remove("getTags");
 				}
 			}
-
+			
 			PushManager.getTagsAsync(cordova.getActivity(), new GetTagsListenerImpl());
 			return true;
 		}
@@ -601,9 +602,9 @@ public class PushNotifications extends CordovaPlugin
 	private void doOnRegistered(String registrationId)
 	{
 		CallbackContext callback = callbackIds.get("registerDevice");
-		if (callback == null)
+		if(callback == null)
 			return;
-
+		
 		callback.success(registrationId);
 		callbackIds.remove("registerDevice");
 	}
@@ -611,7 +612,7 @@ public class PushNotifications extends CordovaPlugin
 	private void doOnRegisteredError(String errorId)
 	{
 		CallbackContext callback = callbackIds.get("registerDevice");
-		if (callback == null)
+		if(callback == null)
 			return;
 
 		callback.error(errorId);
@@ -621,7 +622,7 @@ public class PushNotifications extends CordovaPlugin
 	private void doOnUnregistered(String registrationId)
 	{
 		CallbackContext callback = callbackIds.get("unregisterDevice");
-		if (callback == null)
+		if(callback == null)
 			return;
 
 		callback.success(registrationId);
@@ -631,7 +632,7 @@ public class PushNotifications extends CordovaPlugin
 	private void doOnUnregisteredError(String errorId)
 	{
 		CallbackContext callback = callbackIds.get("unregisterDevice");
-		if (callback == null)
+		if(callback == null)
 			return;
 
 		callback.error(errorId);
@@ -643,16 +644,14 @@ public class PushNotifications extends CordovaPlugin
 		Log.e("doOnMessageReceive", "message is: " + message);
 		final String jsStatement = String.format("window.plugins.pushNotification.notificationCallback(%s);", message);
 		//webView.sendJavascript(jsStatement);
-
+		
 		cordova.getActivity().runOnUiThread(
-				new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						webView.loadUrl("javascript:" + jsStatement);
-					}
-				}
+			new Runnable() { 
+				@Override
+		         public void run() {
+		        	 webView.loadUrl("javascript:" + jsStatement);
+		         }
+			}
 		);
 	}
 
