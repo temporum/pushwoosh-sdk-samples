@@ -93,6 +93,48 @@ public class PushNotificationsAndroid : MonoBehaviour {
 		pushwoosh.Call("scheduleLocalNotification", message, seconds, userdata);
 	}
 	
+	public void setMultiNotificationMode()
+	{
+		pushwoosh.Call("setMultiNotificationMode");
+	}
+
+	public void setSimpleNotificationMode()
+	{
+		pushwoosh.Call("setSimpleNotificationMode");
+	}
+
+	/* 
+	 * Sound notification types:
+	 * 0 - default mode
+	 * 1 - no sound
+	 * 2 - always
+	 */
+	public void setSoundNotificationType(int soundNotificationType)
+	{
+		pushwoosh.Call("setSoundNotificationType", soundNotificationType);
+	}
+
+	/* 
+	 * Vibrate notification types:
+	 * 0 - default mode
+	 * 1 - no vibrate
+	 * 2 - always
+	 */
+	public void setVibrateNotificationType(int vibrateNotificationType)
+	{
+		pushwoosh.Call("setVibrateNotificationType", vibrateNotificationType);
+	}
+
+	public void setLightScreenOnNotification(bool lightsOn)
+	{
+		pushwoosh.Call("setLightScreenOnNotification", lightsOn);
+	}
+
+	public void setEnableLED(bool ledOn)
+	{
+		pushwoosh.Call("setEnableLED", ledOn);
+	}
+	
 	public string getPushToken()
 	{
 		return pushwoosh.Call<string>("getPushToken");
