@@ -8,6 +8,7 @@ public class PushNotificationsAndroid : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		InitPushwoosh();
+		registerForPushNotifications();
 		
 		Debug.Log(this.gameObject.name);
 		Debug.Log(getPushToken());
@@ -28,7 +29,6 @@ public class PushNotificationsAndroid : MonoBehaviour {
 		pushwoosh = pluginClass.CallStatic<AndroidJavaObject>("instance");
 		
 		pushwoosh.Call("setListenerName", this.gameObject.name);
-		registerForPushNotifications();
 	}
  
 	public void setIntTag(string tagName, int tagValue)
@@ -122,6 +122,10 @@ public class PushNotificationsAndroid : MonoBehaviour {
 	}
 	void OnApplicationPause(bool paused)
 	{
+		//make sure everything runs smoothly even if pushwoosh is not initialized yet
+		if (pushwoosh == null)
+			InitPushwoosh();
+
 		if(paused)
 		{
 			pushwoosh.Call("onPause");
