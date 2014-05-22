@@ -1,5 +1,5 @@
-var service;
-var oldTimestamp = 0.0;
+var pushwooshService;
+var pushwooshOldTimestamp = 0.0;
 
 var PushWoosh = {
 	getToken : function() {
@@ -125,7 +125,7 @@ var PushWoosh = {
 	startLocationTracking : function(mode) {
 		if (Ti.Geolocation.locationServicesEnabled) {
 			Ti.App.Properties.setString('bg-location-mode', mode);
-			service = Ti.App.iOS.registerBackgroundService({url:'bg_location_service.js'});
+			pushwooshService = Ti.App.iOS.registerBackgroundService({url:'bg_location_service.js'});
 			
 			Ti.App.removeEventListener('resumed', PushWoosh.handleResume);
 			Ti.App.addEventListener('resumed', PushWoosh.handleResume);
@@ -144,7 +144,7 @@ var PushWoosh = {
 	
 	stopLocationTracking : function() {
 		Ti.Geolocation.removeEventListener('location', PushWoosh.handleLocation);
-		service.unregister();
+		pushwooshService.unregister();
 	},
 	
 	handleResume : function(e) {
@@ -161,9 +161,9 @@ var PushWoosh = {
 	        Ti.API.info('Error: ' + e.error);
 	    } else {
 	    	var timestamp = parseFloat(e.coords.timestamp);
-	    	if (timestamp - oldTimestamp > 10000) {
+	    	if (timestamp - pushwooshOldTimestamp > 10000) {
 	       		PushWoosh.sendLocation(e.coords);
-	       		oldTimestamp = timestamp;
+	       		pushwooshOldTimestamp = timestamp;
 	       	}
 	       	
 	    }
