@@ -91,6 +91,7 @@
 				50A9809215E7ACB6003579A4 /* AppDelegate.m */,
 				50A9808E15E7AC2F003579A4 /* ViewController.h */,
 				50A9808F15E7AC2F003579A4 /* ViewController.m */,
+				50A9809715E7AD67003579A4 /* ViewController.xib */,
 				73C129FA17A9008400CA9627 /* CustomPageViewController.h */,
 				73C129FB17A9008400CA9627 /* CustomPageViewController.m */,
 				73C129FC17A9008400CA9627 /* CustomPageViewController.xib */,
@@ -162,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				50A9809515E7AD67003579A4 /* InfoPlist.strings */,
-				50A9809715E7AD67003579A4 /* ViewController.xib */,
 			);
 			path = en.lproj;
 			sourceTree = "<group>";
@@ -203,7 +203,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						SystemCapabilities = {
@@ -286,6 +286,7 @@
 				50A9809815E7AD67003579A4 /* en */,
 			);
 			name = ViewController.xib;
+			path = ../en.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -306,7 +307,9 @@
 				GCC_PREFIX_HEADER = PushNotificationsApp_Prefix.pch;
 				HEADER_SEARCH_PATHS = "./PushNotificationManager/**";
 				INFOPLIST_FILE = "PushNotificationsApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = PushNotificationsApp;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -323,7 +326,9 @@
 				GCC_PREFIX_HEADER = PushNotificationsApp_Prefix.pch;
 				HEADER_SEARCH_PATHS = "./PushNotificationManager/**";
 				INFOPLIST_FILE = "PushNotificationsApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = PushNotificationsApp;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -331,13 +336,15 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Max Konev (M6E83N8DU5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Max Konev (M6E83N8DU5)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ./PushNotificationManager/Classes;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
@@ -346,6 +353,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;

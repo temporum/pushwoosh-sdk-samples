@@ -1,16 +1,16 @@
 //
-// Prefix header for all source files of the 'PushNotificationsApp' target in the 'PushNotificationsApp' project
+//  PushNotificationsApp
 //
-//  (c) Pushwoosh 2012
+//  (c) Pushwoosh 2014
 //
 
 #import <Availability.h>
 
 #ifndef __IPHONE_4_0
-#warning "This project uses features only available in iOS SDK 4.0 and later."
+    #warning "This project uses features only available in iOS SDK 4.0 and later."
 #endif
 
 #ifdef __OBJC__
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
 #endif

@@ -1,9 +1,7 @@
 //
-//  CustomPageViewController.m
 //  PushNotificationsApp
 //
-//  Created by Alexander Anisimov on 7/31/13.
-//
+//  (c) Pushwoosh 2014
 //
 
 #import "CustomPageViewController.h"
@@ -13,22 +11,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.view.backgroundColor = self.bgColor;
-	self.titleLabel.text = [NSString stringWithFormat:@"Custom page with id %d", self.pageId];
-}
-
-- (void)viewDidUnload {
-    [self setTitleLabel:nil];
-    [super viewDidUnload];
+	self.titleLabel.text = [NSString stringWithFormat:@"Custom page with id %ld", (long)self.pageId];
 }
 
 - (IBAction)closeAction:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)dealloc {
-	[_bgColor release];
-    [_titleLabel release];
-    [super dealloc];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

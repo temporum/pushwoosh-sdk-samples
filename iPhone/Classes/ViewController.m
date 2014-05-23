@@ -1,16 +1,21 @@
 //
-//  ViewController.m
 //  PushNotificationsApp
 //
-//  (c) Pushwoosh 2012
-
+//  (c) Pushwoosh 2014
+//
 
 #import "ViewController.h"
-#import <Pushwoosh/PushNotificationManager.h>
 #import "CustomPageViewController.h"
 
+@interface ViewController ()
+
+@property (nonatomic, weak) IBOutlet UITextField *aliasField;
+@property (nonatomic, weak) IBOutlet UITextField *favNumField;
+@property (nonatomic, weak) IBOutlet UILabel *statusLabel;
+
+@end
+
 @implementation ViewController
-@synthesize aliasField, favNumField, statusLabel;
 
 - (void) startTracking {
 	NSLog(@"Start tracking");
@@ -25,10 +30,10 @@
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
-	if (textField == aliasField) {
-		[favNumField becomeFirstResponder];
-	} else if (textField == favNumField) {
-		[self submitAction:favNumField];
+	if (textField == _aliasField) {
+		[_favNumField becomeFirstResponder];
+	} else if (textField == _favNumField) {
+		[self submitAction:_favNumField];
 	}
 	
 	return YES;
@@ -36,28 +41,21 @@
 
 - (void) viewDidLoad {
 	[super viewDidLoad];
-	
+    
+	[PushNotificationManager pushManager].locationLoggingEnabled = YES;
+    
 	[self startTracking];
-}
-
-//received tags from the server
-- (void) onTagsReceived:(NSDictionary *)tags {
-	NSLog(@"getTags: %@", tags);
-}
-
-//error receiving tags from the server
-- (void) onTagsFailedToReceive:(NSError *)error {
-	NSLog(@"getTags error: %@", error);
 }
 
 - (void) submitAction:(id)sender {
 	NSLog(@"Submitting");
-	[aliasField resignFirstResponder];
-	[favNumField resignFirstResponder];
+    
+	[_aliasField resignFirstResponder];
+	[_favNumField resignFirstResponder];
 	
 	NSDictionary *tags = [NSDictionary dictionaryWithObjectsAndKeys:
-						  [aliasField text], @"Alias",
-						  [NSNumber numberWithInt:[favNumField.text intValue]], @"FavNumber",
+						  [_aliasField text], @"Alias",
+						  [NSNumber numberWithInt:[_favNumField.text intValue]], @"FavNumber",
 						  [NSArray arrayWithObjects:@"Item1", @"Item2", @"Item3", nil], @"List",
 						  [PWTags incrementalTagWithInteger:5], @"price",
 						  nil];
@@ -65,59 +63,7 @@
 	[[PushNotificationManager pushManager] setTags:tags];
 	
 	[[PushNotificationManager pushManager] loadTags];
-	statusLabel.text = @"Tags sent";
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-	    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-	} else {
-	    return YES;
-	}
-}
-
-//succesfully registered for push notifications
-- (void) onDidRegisterForRemoteNotificationsWithDeviceToken:(NSString *)token {
-	statusLabel.text = [NSString stringWithFormat:@"Registered with push token: %@", token];
-}
-
-//failed to register for push notifications
-- (void) onDidFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-	statusLabel.text = [NSString stringWithFormat:@"Failed to register: %@", [error description]];
-}
-
-//user pressed OK on the push notification
-- (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification {
-	[PushNotificationManager clearNotificationCenter];
-	
-	statusLabel.text = [NSString stringWithFormat:@"Received push notification: %@", pushNotification];
-	
-	// Parse custom JSON data string.
-	// You can set background color with custom JSON data in the following format: { "r" : "10", "g" : "200", "b" : "100" }
-	// Or open specific screen of the app with custom page ID (set ID in the { "id" : "2" } format)
-	NSString *customDataString = [pushManager getCustomPushData:pushNotification];
-    
-    NSDictionary *jsonData = nil;
-    
-    if (customDataString) {
-        jsonData = [NSJSONSerialization JSONObjectWithData:[customDataString dataUsingEncoding:NSUTF8StringEncoding]
-                                                   options:NSJSONReadingMutableContainers
-                                                     error:nil];
-    }
-    
-	NSString *redStr = [jsonData objectForKey:@"r"];
-	NSString *greenStr = [jsonData objectForKey:@"g"];
-	NSString *blueStr = [jsonData objectForKey:@"b"];
-    
-	if (redStr || greenStr || blueStr) {
-		[self setViewBackgroundColorWithRed:redStr green:greenStr blue:blueStr];
-	}
-	
-	NSString *pageId = [jsonData objectForKey:@"id"];
-	if (pageId) {
-		[self showPageWithId:pageId];
-	}
+	_statusLabel.text = @"Tags sent";
 }
 
 - (void)setViewBackgroundColorWithRed:(NSString *)redString green:(NSString *)greenString blue:(NSString *)blueString {
@@ -145,15 +91,62 @@
 	} else {
 		[self presentViewController:vc animated:YES completion:nil];
 	}
-	
-	[vc release];
 }
 
-- (void) dealloc {
-	self.aliasField = nil;
-	self.favNumField = nil;
-	self.statusLabel = nil;
-    
-	[super dealloc];
+#pragma mark - PushNotificationDelegate
+
+//succesfully registered for push notifications
+- (void) onDidRegisterForRemoteNotificationsWithDeviceToken:(NSString *)token {
+	_statusLabel.text = [NSString stringWithFormat:@"Registered with push token: %@", token];
 }
+
+//failed to register for push notifications
+- (void) onDidFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+	_statusLabel.text = [NSString stringWithFormat:@"Failed to register: %@", [error description]];
+}
+
+//user pressed OK on the push notification
+- (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification {
+	[PushNotificationManager clearNotificationCenter];
+	
+	_statusLabel.text = [NSString stringWithFormat:@"Received push notification: %@", pushNotification];
+	
+	// Parse custom JSON data string.
+	// You can set background color with custom JSON data in the following format: { "r" : "10", "g" : "200", "b" : "100" }
+	// Or open specific screen of the app with custom page ID (set ID in the { "id" : "2" } format)
+	NSString *customDataString = [pushManager getCustomPushData:pushNotification];
+    
+    NSDictionary *jsonData = nil;
+    
+    if (customDataString) {
+        jsonData = [NSJSONSerialization JSONObjectWithData:[customDataString dataUsingEncoding:NSUTF8StringEncoding]
+                                                   options:NSJSONReadingMutableContainers
+                                                     error:nil];
+    }
+    
+	NSString *redStr = [jsonData objectForKey:@"r"];
+	NSString *greenStr = [jsonData objectForKey:@"g"];
+	NSString *blueStr = [jsonData objectForKey:@"b"];
+    
+	if (redStr || greenStr || blueStr) {
+		[self setViewBackgroundColorWithRed:redStr green:greenStr blue:blueStr];
+	}
+	
+	NSString *pageId = [jsonData objectForKey:@"id"];
+    
+	if (pageId) {
+		[self showPageWithId:pageId];
+	}
+}
+
+//received tags from the server
+- (void) onTagsReceived:(NSDictionary *)tags {
+	NSLog(@"getTags: %@", tags);
+}
+
+//error receiving tags from the server
+- (void) onTagsFailedToReceive:(NSError *)error {
+	NSLog(@"getTags error: %@", error);
+}
+
 @end
