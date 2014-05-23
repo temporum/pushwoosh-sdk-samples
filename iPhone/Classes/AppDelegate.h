@@ -1,22 +1,15 @@
 //
-//  AppDelegate.h
-//  GeoTagsSampleApp
+//  PushNotificationsApp
 //
-//  Created by Vladislav Zozulyak on 31.07.12.
-//  Copyright (c) 2012 exeshneg@gmail.com. All rights reserved.
+//  (c) Pushwoosh 2014
 //
 
-#import <UIKit/UIKit.h>
-
-@class ViewController;
+#import "ViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-
-@property (nonatomic, retain) UINavigationController *navController;
-@property (strong, nonatomic) ViewController *viewController;
-
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) ViewController *viewController;
 
 + (AppDelegate *) sharedDelegate;
 
