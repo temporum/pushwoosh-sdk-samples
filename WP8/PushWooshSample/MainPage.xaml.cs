@@ -10,24 +10,32 @@ namespace PushWooshWP7Sample
 {
     public partial class MainPage 
     {
-        private readonly NotificationService _service = ((PhonePushApplicationService)PhoneApplicationService.Current).NotificationService;
+        private readonly NotificationService _service = null;
 
         public MainPage()
         {
             InitializeComponent();
 
-            _service.Tags.OnError += (sender, args) => MessageBox.Show("Error while sending the tags: \n" + args.Result);
-            _service.Tags.OnSendingComplete += (sender, args) =>
-                                                   {
-                                                       MessageBox.Show("Tag has been sent!");
-                                                       DisplaySkippedTags(args.Result);
-                                                   };
-            _service.OnPushTokenUpdated += (sender, args) =>
-                                               {
-                                                   tbPushToken.Text = args.Result.ToString();
-                                               };
+            _service = NotificationService.GetCurrent("3A43A-A3EAB", null, null);
 
-            tbPushToken.Text = _service.PushToken;
+            _service.OnPushTokenReceived += (sender, args) =>
+            {
+                tbPushToken.Text = args.ToString();
+            };
+
+            _service.OnPushTokenFailed += (sender, args) =>
+            {
+                tbPushToken.Text = args.ToString();
+            };
+
+            _service.OnPushAccepted += (sender, args) =>
+            {
+                tbPush.Text = args.ToString();
+            };
+
+            _service.SubscribeToPushService();
+
+            //tbPushToken.Text = _service.PushToken;
             ResetMyMainTile();
         }
 
@@ -50,29 +58,25 @@ namespace PushWooshWP7Sample
                 value = tbTagValue.Text;
 
             tagsList.Add(new KeyValuePair<string, object>(tbTagTitle.Text, value));
-            _service.Tags.SendRequest(tagsList);
 
-        }
+            _service.SendTag(tagsList,
+                (obj, args) =>
+                {
+                    MessageBox.Show("Tag has been sent!");
+                },
+                (obj, args) => MessageBox.Show("Error while sending the tags: \n" + args.ToString())
+            );
 
-        private void DisplaySkippedTags(IEnumerable<KeyValuePair<string, string>> skippedTags)
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.AppendLine("These tags has been ignored:");
-
-            foreach (var tag in skippedTags)
-            {
-                builder.AppendLine(string.Format("{0} : {1}", tag.Key, tag.Value));
-            }
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            _service.GeoZone.Start();
+            _service.StartGeoLocation();
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            _service.GeoZone.Stop();
+            _service.StopGeoLocation();
         }
 
         private void ResetMyMainTile()
