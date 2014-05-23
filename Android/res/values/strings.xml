@@ -24,4 +24,7 @@
     <string name="on_message">On message: %s</string>
     <string name="second_activity">Second activity</string>
 
+    <string name="start_geo_pushes">Start geo pushes</string>
+    <string name="stop_geo_pushes">Stop geo pushes</string>
+
 </resources>

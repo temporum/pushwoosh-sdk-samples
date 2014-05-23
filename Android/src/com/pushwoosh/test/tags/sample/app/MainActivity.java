@@ -1,7 +1,5 @@
 package com.pushwoosh.test.tags.sample.app;
 
-import java.util.Map;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +22,8 @@ import com.arellomobile.android.push.utils.RegisterBroadcastReceiver;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 public class MainActivity extends FragmentActivity implements SendTagsCallBack
 {
 	private static final String SEND_TAGS_STATUS_FRAGMENT_TAG = "send_tags_status_fragment_tag";
@@ -33,21 +33,24 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 	private EditText mStringTags;
 	private Button mSubmitTagsButton;
 	private TextView mGeneralStatus;
-	
+
 	boolean broadcastPush = true;
-	
-	public class GetTagsListenerImpl implements GetTagsListener {
+
+	public class GetTagsListenerImpl implements GetTagsListener
+	{
 		@Override
-		public void onTagsReceived(Map<String, Object> tags) {
+		public void onTagsReceived(Map<String, Object> tags)
+		{
 			Log.e("Pushwoosh", "Success: get Tags " + tags.toString());
 		}
-		
+
 		@Override
-		public void onError(Exception e) {
+		public void onError(Exception e)
+		{
 			Log.e("Pushwoosh", "ERROR: get Tags " + e.getMessage());
 		}
 	}
-	
+
 	GetTagsListenerImpl tagsListener = new GetTagsListenerImpl();
 
 	/**
@@ -59,35 +62,36 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
-		
+
 		//NetworkUtils.useSSL = true;
-		
+
 		//Register receivers for push notifications
 		registerReceivers();
-		
-		PushManager pushManager = PushManager.getInstance(this);
+
+		final PushManager pushManager = PushManager.getInstance(this);
 
 		//Start push manager, this will count app open for Pushwoosh stats as well
-		try {
+		try
+		{
 			pushManager.onStartup(this);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			//push notifications are not available or AndroidManifest.xml is not configured properly
 		}
-		
+
 		//Register for push!
 		pushManager.registerForPushNotifications();
-		
+
 		//The commented code below shows how to use geo pushes
 		//pushManager.startTrackingGeoPushes();
-		
+
 		//The commented code below shows how to use local notifications
 		//PushManager.clearLocalNotifications(this);
-		
+
 		//easy way
 		//PushManager.scheduleLocalNotification(this, "Your pumpkins are ready!", 30);
-		
+
 		//expert mode
 		//Bundle extras = new Bundle();
 		//extras.putString("b", "https://cp.pushwoosh.com/img/arello-logo.png");
@@ -116,6 +120,24 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 		SendTagsFragment sendTagsFragment = getSendTagsFragment();
 		mTagsStatus.setText(sendTagsFragment.getSendTagsStatus());
 		mSubmitTagsButton.setEnabled(sendTagsFragment.canSendTags());
+
+		// Start/stop geo pushes
+		findViewById(R.id.butt_start_goe_pushes).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				pushManager.startTrackingGeoPushes();
+			}
+		});
+		findViewById(R.id.butt_stop_goe_pushes).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				pushManager.stopTrackingGeoPushes();
+			}
+		});
 	}
 
 	/**
@@ -128,7 +150,7 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 		//have to check if we've got new intent as a part of push notification
 		checkMessage(intent);
 	}
-	
+
 	//Registration receiver
 	BroadcastReceiver mBroadcastReceiver = new RegisterBroadcastReceiver()
 	{
@@ -138,7 +160,7 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 			checkMessage(intent);
 		}
 	};
-	
+
 	//Push message receiver
 	private BroadcastReceiver mReceiver = new BasePushMessageReceiver()
 	{
@@ -149,18 +171,18 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 			doOnMessageReceive(intent.getExtras().getString(JSON_DATA_KEY));
 		}
 	};
-	
+
 	//Registration of the receivers
 	public void registerReceivers()
 	{
 		IntentFilter intentFilter = new IntentFilter(getPackageName() + ".action.PUSH_MESSAGE_RECEIVE");
 
-		if(broadcastPush)
+		if (broadcastPush)
 			registerReceiver(mReceiver, intentFilter);
-		
-		registerReceiver(mBroadcastReceiver, new IntentFilter(getPackageName() + "." + PushManager.REGISTER_BROAD_CAST_ACTION));		
+
+		registerReceiver(mBroadcastReceiver, new IntentFilter(getPackageName() + "." + PushManager.REGISTER_BROAD_CAST_ACTION));
 	}
-	
+
 	public void unregisterReceivers()
 	{
 		//Unregister receivers on pause
@@ -172,7 +194,7 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 		{
 			// pass.
 		}
-		
+
 		try
 		{
 			unregisterReceiver(mBroadcastReceiver);
@@ -182,16 +204,16 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 			//pass through
 		}
 	}
-	
+
 	@Override
 	public void onResume()
 	{
 		super.onResume();
-		
+
 		//Re-register receivers on resume
 		registerReceivers();
 	}
-	
+
 	@Override
 	public void onPause()
 	{
