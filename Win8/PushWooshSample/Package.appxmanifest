@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="ArelloMobile.Pushwooshsampleapp" Publisher="CN=2FCDA0AA-0144-4189-9D7C-DAD21512D308" Version="1.0.0.4" />
+  <Identity Name="ArelloMobile.Pushwooshsampleapp" Publisher="CN=2FCDA0AA-0144-4189-9D7C-DAD21512D308" Version="1.0.0.5" />
   <Properties>
     <DisplayName>Pushwoosh sample app</DisplayName>
     <PublisherDisplayName>Arello Mobile</PublisherDisplayName>

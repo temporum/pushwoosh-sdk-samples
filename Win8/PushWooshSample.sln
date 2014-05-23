@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushWooshSample", "PushWooshSample\PushWooshSample.csproj", "{EF8ECEB8-9129-46BC-9630-FD62129F298F}"
 EndProject
 Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "Win8JS", "Win8JS\Win8JS.jsproj", "{59622519-EC34-4450-A4D8-68145080F42C}"

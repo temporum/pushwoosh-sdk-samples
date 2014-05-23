@@ -49,7 +49,7 @@
             <StackPanel Orientation="Horizontal"/>
             <StackPanel>
                 <TextBlock Text="PW Application ID" FontFamily="Segoe UI" FontSize="20" Margin="0,15,0,0"/>
-                <TextBox x:Name="PWID" Text="015F6-D73EE" FontFamily="Segoe UI" FontSize="16" Margin="0,5,0,0"/>
+                <TextBox x:Name="PWID" Text="722EA-2CCC4" FontFamily="Segoe UI" FontSize="16" Margin="0,5,0,0"/>
                 <TextBlock Text="Host" FontFamily="Segoe UI" FontSize="20" Margin="0,15,0,0"/>
                 <TextBox x:Name="Host" Text ="https://cp.pushwoosh.com/" FontFamily="Segoe UI" FontSize="16" Margin="0,5,0,0"/>
 

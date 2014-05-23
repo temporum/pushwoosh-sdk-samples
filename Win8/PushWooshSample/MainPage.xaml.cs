@@ -129,18 +129,6 @@ namespace PushWooshSample
             }
         }
 
-        private void DisplaySkippedTags(IEnumerable<KeyValuePair<string, string>> skippedTags)
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.AppendLine("These tags has been ignored:");
-
-            foreach (var tag in skippedTags)
-            {
-                builder.AppendLine(string.Format("{0} : {1}", tag.Key, tag.Value));
-            }
-        }
-
-
         private void Subscribe_Tapped(object sender_, TappedRoutedEventArgs e)
         {
             try
