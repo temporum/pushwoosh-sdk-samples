@@ -123,8 +123,6 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\wide_logo.png" />
     <Content Include="Background.png" />
-    <Content Include="Image1.png" />
-    <Content Include="Image2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

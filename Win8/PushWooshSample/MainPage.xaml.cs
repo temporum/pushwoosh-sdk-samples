@@ -147,7 +147,7 @@ namespace PushWooshSample
             {
 
                 string _PWId = PWID.Text;
-                service = PushSDK.NotificationService.GetCurrent(_PWId, "", null);
+                service = PushSDK.NotificationService.GetCurrent(_PWId, "");
                 if (Host.Text.EndsWith("/"))
                 {
                     service.SetHost(Host.Text);
@@ -158,6 +158,8 @@ namespace PushWooshSample
                 }
 
                 service.OnPushAccepted += service_OnPushAccepted;
+                service.OnPushTokenReceived += (sender, pushToken) => {tbPushToken.Text = pushToken;};
+                service.OnPushTokenFailed += (sender, errorMessage) => { tbPushToken.Text = errorMessage; };
                 service.SubscribeToPushService();
 
                 if (service.PushToken != null)

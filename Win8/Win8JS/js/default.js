@@ -57,10 +57,23 @@ function subscribeClick(mouseEvent) {
         service.subscribeToPushService();
 
         var fieldNameElement = document.getElementById('userToken');
-        if (fieldNameElement.firstChild) {
+        if (fieldNameElement.firstChild && service.pushToken != null) {
             fieldNameElement.firstChild.nodeValue = service.pushToken;
         }
 
+        service.ononpushtokenreceived = function (pushToken) {
+            var fieldNameElement = document.getElementById('userToken');
+            if (fieldNameElement.firstChild) {
+                fieldNameElement.firstChild.nodeValue = pushToken;
+            }
+        }
+
+        service.ononpushtokenfailed = function (error) {
+            var fieldNameElement = document.getElementById('userToken');
+            if (fieldNameElement.firstChild) {
+                fieldNameElement.firstChild.nodeValue = error;
+            }
+        }
     }
     catch (ex_var) {
         txt = "Subscribe failed. Check subscribe parameters and retry: \n" + ex_var.message + "\n";
