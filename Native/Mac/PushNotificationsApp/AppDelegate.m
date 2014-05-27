@@ -4,7 +4,7 @@
 //
 
 #import "AppDelegate.h"
-#import "PushNotificationManager.h"
+#import <PushNotificationManager/PushNotificationManager.h>
 
 @implementation AppDelegate
 

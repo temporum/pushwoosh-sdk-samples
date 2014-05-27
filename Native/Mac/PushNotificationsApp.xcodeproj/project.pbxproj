@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		503FA86B1934A86D00EBEEFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503FA86A1934A86D00EBEEFC /* CoreLocation.framework */; };
 		507F27EE191134A700A79CCC /* PushNotificationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507F27ED191134A700A79CCC /* PushNotificationManager.framework */; };
 		50A980B815E81363003579A4 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A980B715E81363003579A4 /* IOKit.framework */; };
 		AB84567D14D96F4C00A17648 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB84567C14D96F4C00A17648 /* Cocoa.framework */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		503FA8681934A86100EBEEFC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		503FA86A1934A86D00EBEEFC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		507F27ED191134A700A79CCC /* PushNotificationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PushNotificationManager.framework; sourceTree = "<group>"; };
 		50A980B715E81363003579A4 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		AB84567814D96F4C00A17648 /* PushNotificationsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushNotificationsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				503FA86B1934A86D00EBEEFC /* CoreLocation.framework in Frameworks */,
 				50A980B815E81363003579A4 /* IOKit.framework in Frameworks */,
 				507F27EE191134A700A79CCC /* PushNotificationManager.framework in Frameworks */,
 				AB84567D14D96F4C00A17648 /* Cocoa.framework in Frameworks */,
@@ -70,6 +74,8 @@
 		AB84567B14D96F4C00A17648 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				503FA86A1934A86D00EBEEFC /* CoreLocation.framework */,
+				503FA8681934A86100EBEEFC /* Security.framework */,
 				507F27ED191134A700A79CCC /* PushNotificationManager.framework */,
 				AB84567C14D96F4C00A17648 /* Cocoa.framework */,
 				AB84567E14D96F4C00A17648 /* Other Frameworks */,
@@ -138,6 +144,11 @@
 			attributes = {
 				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = "fever9@gmail.com";
+				TargetAttributes = {
+					AB84567714D96F4C00A17648 = {
+						DevelopmentTeam = 6LEBXVHL45;
+					};
+				};
 			};
 			buildConfigurationList = AB84567214D96F4C00A17648 /* Build configuration list for PBXProject "PushNotificationsApp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -265,6 +276,8 @@
 		AB84569714D96F4C00A17648 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -274,6 +287,7 @@
 				GCC_PREFIX_HEADER = "PushNotificationsApp/PushNotificationsApp-Prefix.pch";
 				INFOPLIST_FILE = "PushNotificationsApp/PushNotificationsApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -281,6 +295,8 @@
 		AB84569814D96F4C00A17648 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -290,6 +306,7 @@
 				GCC_PREFIX_HEADER = "PushNotificationsApp/PushNotificationsApp-Prefix.pch";
 				INFOPLIST_FILE = "PushNotificationsApp/PushNotificationsApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
