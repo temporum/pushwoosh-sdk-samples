@@ -138,8 +138,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\PushSDK\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PushSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PushSDK">
       <HintPath>..\PushSDK\PushSDK.dll</HintPath>
     </Reference>
   </ItemGroup>
