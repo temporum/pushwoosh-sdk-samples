@@ -8,8 +8,8 @@
         <target device="android">false</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>3.1.2.GA</sdk-version>
-    <id>com.pushwoosh.testapp</id>
+    <sdk-version>3.2.3.GA</sdk-version>
+    <id>com.pushwoosh.testing</id>
     <name>Pushwoosh iOS</name>
     <version>1.0</version>
     <publisher>Arello Mobile</publisher>

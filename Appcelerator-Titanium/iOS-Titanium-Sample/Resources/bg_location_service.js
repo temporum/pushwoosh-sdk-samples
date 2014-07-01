@@ -1,6 +1,6 @@
 var mode = Ti.App.Properties.getString('bg-location-mode', 'PWTrackingDisabled');
 
-Ti.include('pushwoosh.js');
+var PushWoosh = require('pushwoosh/pushwoosh');
 
 if (mode === 'PWTrackingDisabled') {
 	Ti.App.currentService.stop();

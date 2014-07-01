@@ -12,9 +12,9 @@ var tab1 = Titanium.UI.createTab({
 	window : win
 });
 
-Ti.include('pushwoosh.js');
+var PushWoosh = require('pushwoosh/pushwoosh');
 
-PushWoosh.appCode = 'A6C3E-A0F27';
+PushWoosh.appCode = '736A4-2F7B8';
 
 var register = Ti.UI.createButton({
 	title : 'register',
@@ -34,7 +34,7 @@ register.addEventListener('click', function() {
 			var deviceToken = e.deviceToken;
 			Ti.API.info('successfully registered for apple device token with ' + e.deviceToken);
 			
-			PushWoosh.register(function(data) {
+			PushWoosh.register(deviceToken, function(data) {
 				Ti.API.debug("PushWoosh register success: " + JSON.stringify(data));
 				
 				PushWoosh.setTags({alias:"device1"}, function(data) {
@@ -42,7 +42,7 @@ register.addEventListener('click', function() {
 					},function(e) {
 						Ti.API.warn("Couldn't setTags with PushWoosh: " + JSON.stringify(e));
 				});
-				
+ 				
 			}, function(e) {
 				Ti.API.warn("Couldn't register with PushWoosh: " + JSON.stringify(e));
 			});
