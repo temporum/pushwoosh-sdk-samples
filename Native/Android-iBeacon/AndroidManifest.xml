@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.senneco.BigNotify"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!--library-->
+    <!--uses-permission android:name="android.permission.READ_PHONE_STATE" /-->
+
+    <!-- GCM connects to Google Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!--
+     Creates a custom permission so only this app can receive its messages.
+
+     NOTE: the permission *must* be called PACKAGE.permission.C2D_MESSAGE,
+           where PACKAGE is the application's package name.
+    -->
+    <permission
+        android:name="com.senneco.BigNotify.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.senneco.BigNotify.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <!-- GCM requires Android SDK version 2.2 (API level <img src="http://www.pushwoosh.com/wp-includes/images/smilies/icon_cool.gif" alt="8)" class="wp-smiley"> or above. -->
+    <!-- The targetSdkVersion is optional, but it's always a good practice
+         to target higher versions. -->
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher">
+        <activity
+            android:name=".MyActivity"
+            android:launchMode="singleTop"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.senneco.BigNotify.MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.arellomobile.android.push.PushWebview"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:label="HELLO WORLD" />
+
+        <activity android:name="com.arellomobile.android.push.MessageActivity" />
+
+        <activity android:name="com.arellomobile.android.push.PushHandlerActivity" />
+
+        <!--
+          BroadcastReceiver that will receive intents from GCM
+          services and handle them to the custom IntentService.
+
+          The com.google.android.c2dm.permission.SEND permission is necessary
+          so only GCM services can send data messages for the app.
+        -->
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.senneco.BigNotify" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+          Application-specific subclass of PushGCMIntentService that will
+          handle received messages.
+        -->
+        <!--service android:name=".CustomPushService" />
+        <meta-data android:name="PW_PUSH_SERVICE" android:value="com.senneco.BigNotify.CustomPushService" /-->
+        <service android:name="com.arellomobile.android.push.PushGCMIntentService" />
+
+        <service android:name="com.arellomobile.android.push.GeoLocationService" />
+
+        <service android:enabled="true" android:exported="true" android:isolatedProcess="false" android:label="iBeacon" android:name="com.radiusnetworks.ibeacon.service.IBeaconService" />
+        <service android:enabled="true" android:name="com.radiusnetworks.ibeacon.IBeaconIntentProcessor" />
+        <service android:name="com.arellomobile.android.push.PushBeaconService" />
+
+        <receiver android:name="com.arellomobile.android.push.AlarmReceiver" />
+
+    </application>
+</manifest>

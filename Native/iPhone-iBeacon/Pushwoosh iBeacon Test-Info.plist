@@ -21,7 +21,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.pushwoosh.testing</string>
+	<string>com.pushwoosh.maxapp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -37,9 +37,10 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>Pushwoosh_APPID</key>
-	<string>736A4-2F7B8</string>
+	<string>4FC89B6D14A655.46488481</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>bluetooth-central</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
