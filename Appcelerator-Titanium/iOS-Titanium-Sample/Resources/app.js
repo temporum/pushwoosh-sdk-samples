@@ -55,13 +55,21 @@ register.addEventListener('click', function() {
 			
 			//send stats to Pushwoosh about push opened
 			PushWoosh.sendPushStat(e.data.p);
-		
+			var pushwoohURL = e['data']['l'];
+			
 			var a = Ti.UI.createAlertDialog({
 				title : 'New Message',
-				message : e.data.alert
+				message : e.data.alert,
+				buttonNames : ['Open', 'Close']
 				//message : JSON.stringify(e.data)	//if you want to access additional custom data in the payload
 			});
 			a.show();
+			
+			a.addEventListener('click', function(e) {
+			   if (e.index == 0) {
+				Titanium.Platform.openURL(pushwoohURL);
+			   }
+			});
 		}
 	});
 	Ti.API.info('registering with PushWoosh');
