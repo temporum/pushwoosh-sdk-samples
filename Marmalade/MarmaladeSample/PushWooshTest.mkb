@@ -9,7 +9,6 @@ files
 deployments
 {
 	android-manifest = AndroidManifest.xml
-	android-external-jars="Pushwoosh.jar"
 }
 
 options

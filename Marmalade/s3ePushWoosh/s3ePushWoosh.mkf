@@ -37,7 +37,8 @@ if {{ not defined IW_MKF_IWCRT}}
 #Include the extension's jar file during deployment
 deployments
 {
-    android-external-jars="Pushwoosh.jar,lib/android/s3ePushWoosh.jar"
+    android-external-jars="Pushwoosh.jar"
+    android-external-jars="lib/android/s3ePushWoosh.jar"
     android-so="lib/android/libs3ePushWoosh.so"
 }
 
