@@ -55,8 +55,11 @@ namespace PushwooshSample
 			mRegisterReceiver = new LocalRegisterBroadcastReceiver ();
 			mRegisterReceiver.activity = this;
 
-			ArelloMobile.Push.PushManager manager = new ArelloMobile.Push.PushManager (this, "583A3-D5063", "55344347410");
+			ArelloMobile.Push.PushManager manager = ArelloMobile.Push.PushManager.GetInstance (this);
 			manager.OnStartup (this);
+
+			//Register for push!
+			manager.RegisterForPushNotifications();
 
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.main);

@@ -41,6 +41,12 @@
 
 	<application android:label="Tasky" android:debuggable="true" android:icon="@drawable/ic_launcher" android:theme="@android:style/Theme.Light">
 
+	    <meta-data
+            android:name="PW_APPID"
+            android:value="583A3-D5063" />
+        <meta-data
+            android:name="PW_PROJECT_ID"
+            android:value="A55344347410" />
 
         <activity android:name="com.arellomobile.android.push.PushWebview"/>
 
