@@ -1,5 +1,5 @@
 #!/usr/bin/env mkb
-subproject ../s3epushwoosh
+subproject ../s3ePushWoosh
 
 files
 {
