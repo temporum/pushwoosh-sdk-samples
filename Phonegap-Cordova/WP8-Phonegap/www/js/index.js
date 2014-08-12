@@ -83,27 +83,43 @@ function pushwooshInitialized()
 {
     var pushNotification = window.plugins.pushNotification;
 
+    //there is a MASSIVE bug in cordova, still present at 3.6.0-dev :(
+    //https://github.com/apache/cordova-wp8/commit/fb9cf558c65bd0e580915f2a6d7ab96986e85965
+    //do not call several plugin command at once!
+
     //if you need push token at a later time you can always get it from Pushwoosh plugin
-    pushNotification.getPushToken(
+    /*pushNotification.getPushToken(
         function (token) {
-            console.warn('push token: ' + token);
+            alert('push token: ' + token);
         }
     );
+*/
 
     //and HWID if you want to communicate with Pushwoosh API
-    pushNotification.getPushwooshHWID(
+    /*pushNotification.getPushwooshHWID(
         function (token) {
-            console.warn('Pushwoosh HWID: ' + token);
+            alert('Pushwoosh HWID: ' + token);
         }
     );
-
+*/
     //settings tags
-    pushNotification.setTags({ deviceName: "hello", deviceId: 10 },
+    pushNotification.setTags({ tagName: "tagValue", intTagName: 10 },
         function (status) {
-            console.warn('setTags success');
+            alert('setTags success: ' + JSON.stringify(status));
         },
         function (status) {
             console.warn('setTags failed');
         }
     );
+
+    /*
+    pushNotification.getTags(
+        function (status) {
+            alert('getTags success: ' + JSON.stringify(status));
+        },
+        function (status) {
+            console.warn('getTags failed');
+        }
+    );
+    */
 }

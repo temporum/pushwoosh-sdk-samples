@@ -10,6 +10,8 @@ using WPCordovaClassLib.Cordova.JSON;
 using System.Runtime.Serialization;
 using System.Threading;
 using Newtonsoft.Json.Linq;
+using PushSDK.Classes;
+using Newtonsoft.Json;
 
 namespace WPCordovaClassLib.Cordova.Commands
 {
@@ -19,6 +21,8 @@ namespace WPCordovaClassLib.Cordova.Commands
         private String authenticatedServiceName = null;
         private NotificationService service = null;
         volatile private bool deviceReady = false;
+
+        private string registerCallbackId = null;
 
         //Phonegap runs all plugins methods on a separate threads, make sure onDeviceReady goes first
         void waitDeviceReady()
@@ -44,35 +48,76 @@ namespace WPCordovaClassLib.Cordova.Commands
 
         private void OnPushTokenReceived(object sender, string token)
         {
-            DispatchCommandResult(new PluginResult(PluginResult.Status.OK, token));
+            if(registerCallbackId != null)
+                DispatchCommandResult(new PluginResult(PluginResult.Status.OK, token), registerCallbackId);
         }
 
         private void OnPushTokenFailed(object sender, string error)
         {
-            DispatchCommandResult(new PluginResult(PluginResult.Status.ERROR, error));
+            if (registerCallbackId != null)
+                DispatchCommandResult(new PluginResult(PluginResult.Status.ERROR, error), registerCallbackId);
         }
 
         public void registerDevice(string options)
         {
+            string callbackId = this.CurrentCommandCallbackId;
             waitDeviceReady();
+
             service.SubscribeToPushService(authenticatedServiceName);
             if (string.IsNullOrEmpty(service.PushToken))
             {
+                registerCallbackId = this.CurrentCommandCallbackId;
+
                 PluginResult plugResult = new PluginResult(PluginResult.Status.NO_RESULT);
                 plugResult.KeepCallback = true;
-                DispatchCommandResult(plugResult);
+                DispatchCommandResult(plugResult, callbackId);
             }
             else
             {
-                DispatchCommandResult(new PluginResult(PluginResult.Status.OK, service.PushToken));
+                DispatchCommandResult(new PluginResult(PluginResult.Status.OK, service.PushToken), callbackId);
             }
         }
 
         public void unregisterDevice(string options)
         {
+            string callbackId = this.CurrentCommandCallbackId;
+            PluginResult plugResult = new PluginResult(PluginResult.Status.NO_RESULT);
+            plugResult.KeepCallback = true;
+            DispatchCommandResult(plugResult);
+
             waitDeviceReady();
-            service.UnsubscribeFromPushes();
-            DispatchCommandResult(new PluginResult(PluginResult.Status.OK, "Unregistered from pushes"));
+            service.UnsubscribeFromPushes(
+                (obj, args) =>
+                {
+                    string result = JsonConvert.SerializeObject(args);
+                    DispatchCommandResult(new PluginResult(PluginResult.Status.OK, result));
+                },
+                (obj, args) =>
+                {
+                    string result = JsonConvert.SerializeObject(args);
+                    DispatchCommandResult(new PluginResult(PluginResult.Status.ERROR, result));
+                });
+        }
+
+        public void getTags(string options)
+        {
+            string callbackId = this.CurrentCommandCallbackId;
+            PluginResult plugResult = new PluginResult(PluginResult.Status.NO_RESULT);
+            plugResult.KeepCallback = true;
+            DispatchCommandResult(plugResult);
+
+            waitDeviceReady();
+            service.GetTags(
+                (obj, args) =>
+                {
+                    string result = JsonConvert.SerializeObject(args);
+                    DispatchCommandResult(new PluginResult(PluginResult.Status.OK, result), callbackId);
+                },
+                (obj, args) =>
+                {
+                    string result = JsonConvert.SerializeObject(args);
+                    DispatchCommandResult(new PluginResult(PluginResult.Status.ERROR, result), callbackId);
+                });
         }
 
         public void getPushwooshHWID(string options)
@@ -92,6 +137,11 @@ namespace WPCordovaClassLib.Cordova.Commands
 
         public void setTags(string options)
         {
+            string callbackId = this.CurrentCommandCallbackId;
+            PluginResult plugResult = new PluginResult(PluginResult.Status.NO_RESULT);
+            plugResult.KeepCallback = true;
+            DispatchCommandResult(plugResult);
+
             waitDeviceReady();
             string[] opts = JSON.JsonHelper.Deserialize<string[]>(options);
 
@@ -106,11 +156,13 @@ namespace WPCordovaClassLib.Cordova.Commands
             service.SendTag(tags,
                 (obj, args) =>
                 {
-                    DispatchCommandResult(new PluginResult(PluginResult.Status.OK, JsonHelper.Serialize(args)));
+                    string result = JsonConvert.SerializeObject(args);
+                    DispatchCommandResult(new PluginResult(PluginResult.Status.OK, result), callbackId);
                 },
                 (obj, args) => 
                 {
-                    DispatchCommandResult(new PluginResult(PluginResult.Status.ERROR, JsonHelper.Serialize(args)));
+                    string result = JsonConvert.SerializeObject(args);
+                    DispatchCommandResult(new PluginResult(PluginResult.Status.ERROR, result), callbackId);
                 }
             );
         }
@@ -129,7 +181,7 @@ namespace WPCordovaClassLib.Cordova.Commands
             DispatchCommandResult(new PluginResult(PluginResult.Status.OK, "GeoZone service is stopped"));
         }
 
-        void ExecutePushNotificationCallback(object sender, string pushPayload)
+        void ExecutePushNotificationCallback(object sender, ToastPush push)
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -145,6 +197,7 @@ namespace WPCordovaClassLib.Cordova.Commands
                     {
                         try
                         {
+                            string pushPayload = JsonConvert.SerializeObject(push);
                             cView.Browser.InvokeScript("execScript", "window.plugins.pushNotification.notificationCallback(" + pushPayload + ")");
                         }
                         catch (Exception ex)

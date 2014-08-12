@@ -373,9 +373,6 @@
     <Compile Include="Plugins\com.pushwoosh.plugins.pushwoosh\PushNotification.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Coding4Fun.Phone.Controls">
-      <HintPath>plugins\com.pushwoosh.plugins.pushwoosh\Coding4Fun.Phone.Controls.dll</HintPath>
-    </Reference>
     <Reference Include="PushSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Plugins\com.pushwoosh.plugins.pushwoosh\PushSDK.dll</HintPath>
