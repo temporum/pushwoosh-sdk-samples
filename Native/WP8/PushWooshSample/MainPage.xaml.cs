@@ -41,11 +41,13 @@ namespace PushWooshWP7Sample
 
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
-            _service.UnsubscribeFromPushes();
+            _service.UnsubscribeFromPushes((obj, args) => { MessageBox.Show("Unsubscribed"); }, (obj, args) => { MessageBox.Show("Failed to unsubscribe"); });
         }
 
         private void btnSendTag_Click(object sender, RoutedEventArgs e)
         {
+            _service.GetTags((obj, args) => { MessageBox.Show("Tags: " + args.ToString()); }, (obj, args) => { MessageBox.Show("Error: " + args.ToString()); });
+
             var tagsList = new List<KeyValuePair<string, object>>();
 
             object value;

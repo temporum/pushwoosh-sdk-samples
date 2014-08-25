@@ -189,7 +189,16 @@ function sendingTagClick(mouseEvent) {
             try {
                 var tag = new PushSDK.NotificationService.getCurrent(id, "", null);
 
-                tag.sendTag(keys, values);
+                tag.getTags(
+                    function (caller, tags) {
+                        var md = new Windows.UI.Popups.MessageDialog(tags);
+                        md.showAsync();
+                    }, function (error) {
+                        var md = new Windows.UI.Popups.MessageDialog("failed to get tags");
+                        md.showAsync()
+                    });
+
+                tag.sendTag(keys, values, null, null);
                 txt = "Tag has been sent!";
                 console.log(txt);
 

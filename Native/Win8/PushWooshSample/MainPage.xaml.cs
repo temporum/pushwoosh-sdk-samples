@@ -104,7 +104,17 @@ namespace PushWooshSample
         {
             if (service != null)
             {
-                service.UnsubscribeFromPushes();
+                service.UnsubscribeFromPushes(
+                    (obj, args) =>
+                    {
+                        MessageDialog dialog = new MessageDialog("Unsubscribed");
+                        dialog.ShowAsync();
+                    },
+                    (obj, args) =>
+                    {
+                        MessageDialog dialog = new MessageDialog("Failed to unsubscribe");
+                        dialog.ShowAsync();
+                    });
             }
             SubButton.IsEnabled = true; ;
             UnSubButton.IsEnabled = false;
@@ -125,7 +135,29 @@ namespace PushWooshSample
 
             if (service != null)
             {
-                service.SendTag(Keys, Values);
+                service.GetTags(
+                    (obj, args) =>
+                    {
+                        MessageDialog dialog = new MessageDialog("Tags: " + args);
+                        dialog.ShowAsync();
+                    },
+                    (obj, args) =>
+                    {
+                        MessageDialog dialog = new MessageDialog("Get tags failed");
+                        dialog.ShowAsync();
+                    });
+
+                service.SendTag(Keys, Values,
+                    (obj, args) =>
+                    {
+                        MessageDialog dialog = new MessageDialog("Tags sent succesfully");
+                        dialog.ShowAsync();
+                    },
+                    (obj, args) =>
+                    {
+                        MessageDialog dialog = new MessageDialog("Tags sent failed");
+                        dialog.ShowAsync();
+                    });
             }
         }
 
