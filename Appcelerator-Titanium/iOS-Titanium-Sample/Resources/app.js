@@ -28,30 +28,44 @@ var register = Ti.UI.createButton({
 PushWoosh.sendAppOpen();
 
 register.addEventListener('click', function() {
-	Ti.Network.registerForPushNotifications({
-		types : [Ti.Network.NOTIFICATION_TYPE_BADGE, Ti.Network.NOTIFICATION_TYPE_ALERT, Ti.Network.NOTIFICATION_TYPE_SOUND],
-		success : function(e) {
-			var deviceToken = e.deviceToken;
-			Ti.API.info('successfully registered for apple device token with ' + e.deviceToken);
-			
-			PushWoosh.register(deviceToken, function(data) {
-				Ti.API.debug("PushWoosh register success: " + JSON.stringify(data));
-				
-				PushWoosh.setTags({alias:"device1"}, function(data) {
-						Ti.API.debug("PushWoosh sendTags success: " + JSON.stringify(data));
-					},function(e) {
-						Ti.API.warn("Couldn't setTags with PushWoosh: " + JSON.stringify(e));
-				});
- 				
-			}, function(e) {
-				Ti.API.warn("Couldn't register with PushWoosh: " + JSON.stringify(e));
+	
+	var deviceToken = null;
+
+	// Check if the device is running iOS 8 or later
+	if (Ti.Platform.name == "iPhone OS" && parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
+		function registerForPush() {
+			Ti.Network.registerForPushNotifications({
+				success : deviceTokenSuccess,
+				error : deviceTokenError,
+				callback : receivePush
 			});
-		},
-		error : function(e) {
-			Ti.API.warn("push notifications disabled: " + JSON.stringify(e));
-		},
-		callback : function(e) {
-			Ti.API.warn("push message received: " + JSON.stringify(e));
+			// Remove event listener once registered for push notifications
+			Ti.App.iOS.removeEventListener('usernotificationsettings', registerForPush);
+		};
+	
+		// Wait for user settings to be registered before registering for push notifications
+		Ti.App.iOS.addEventListener('usernotificationsettings', registerForPush);
+	
+		// Register notification types to use
+		Ti.App.iOS.registerUserNotificationSettings({
+			types : [Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT, Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND, Ti.App.iOS.USER_NOTIFICATION_TYPE_BADGE]
+		});
+	
+	} else {
+		// For iOS 7 and earlier
+		Ti.Network.registerForPushNotifications({
+			// Specifies which notifications to receive
+			types : [Ti.Network.NOTIFICATION_TYPE_BADGE, Ti.Network.NOTIFICATION_TYPE_ALERT, Ti.Network.NOTIFICATION_TYPE_SOUND],
+			success : deviceTokenSuccess,
+			error : deviceTokenError,
+			callback : receivePush
+		});
+	}
+	
+	// Process incoming push notifications
+	function receivePush(e) {
+		alert('Received push: ' + JSON.stringify(e));
+		Ti.API.warn("push message received: " + JSON.stringify(e));
 			
 			//send stats to Pushwoosh about push opened
 			PushWoosh.sendPushStat(e.data.p);
@@ -70,8 +84,33 @@ register.addEventListener('click', function() {
 				Titanium.Platform.openURL(pushwoohURL);
 			   }
 			});
-		}
-	});
+	}
+	
+	// Save the device token for subsequent API calls
+	function deviceTokenSuccess(e) {
+		deviceToken = e.deviceToken;
+		Ti.API.info('successfully registered for apple device token with ' + e.deviceToken);
+			
+			PushWoosh.register(deviceToken, function(data) {
+				Ti.API.debug("PushWoosh register success: " + JSON.stringify(data));
+				
+				PushWoosh.setTags({alias:"device1"}, function(data) {
+						Ti.API.debug("PushWoosh sendTags success: " + JSON.stringify(data));
+					},function(e) {
+						Ti.API.warn("Couldn't setTags with PushWoosh: " + JSON.stringify(e));
+				});
+ 				
+			}, function(e) {
+				Ti.API.warn("Couldn't register with PushWoosh: " + JSON.stringify(e));
+			});
+	}
+	
+	function deviceTokenError(e) {
+		alert('Failed to register for push notifications! ' + e.error);
+		Ti.API.warn("push notifications disabled: " + JSON.stringify(e));
+	}
+
+	
 	Ti.API.info('registering with PushWoosh');
 	
 	PushWoosh.startLocationTracking('PWTrackAccurateLocationChanges');
