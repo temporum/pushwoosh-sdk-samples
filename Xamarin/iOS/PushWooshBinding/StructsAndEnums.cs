@@ -5,7 +5,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.CoreLocation;
 
-namespace PushWooshBinding
+namespace PushWoosh
 {
 	public enum PWSupportedOrientations {
 		OrientationPortrait = 1 << 0,

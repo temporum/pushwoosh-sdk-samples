@@ -5,7 +5,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.CoreLocation;
 
-namespace PushWooshBinding
+namespace PushWoosh
 {
 	public delegate void LocationHandler (CLLocation location);
 	public delegate void PushwooshGetTagsHandler (NSDictionary tags);
@@ -15,11 +15,11 @@ namespace PushWooshBinding
 	public partial interface HtmlWebViewControllerDelegate {
 
 		[Export ("htmlWebViewControllerDidClose:")]
-		void HtmlWebViewControllerDidClose (HtmlWebViewController viewController);
+		void HtmlWebViewControllerDidClose (PWHtmlWebViewController viewController);
 	}
 
 	[BaseType (typeof (UIViewController))]
-	public partial interface HtmlWebViewController  {
+	public partial interface PWHtmlWebViewController  {
 
 		[Export ("initWithURLString:")]
 		IntPtr Constructor (string url);
@@ -111,6 +111,12 @@ namespace PushWooshBinding
 
 		[Export ("showWebView")]
 		void ShowWebView ();
+
+		[Export ("registerForPushNotifications")]
+		void RegisterForPushNotifications ();
+
+		[Export ("unregisterForPushNotifications")]
+		void UnregisterForPushNotifications ();
 
 		[Export ("startLocationTracking")]
 		void StartLocationTracking ();

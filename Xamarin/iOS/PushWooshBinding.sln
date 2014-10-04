@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushWooshBinding", "PushWooshBinding\PushWooshBinding.csproj", "{44A022F7-B823-4378-B609-5DEE80AD38B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushWoosh", "PushWooshBinding\PushWoosh.csproj", "{44A022F7-B823-4378-B609-5DEE80AD38B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushwooshSample", "PushwooshSample\PushwooshSample.csproj", "{0A858D00-D5BA-4671-BDB1-404A803112E4}"
 EndProject

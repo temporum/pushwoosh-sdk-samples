@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using PushWooshBinding;
+using PushWoosh;
 
 namespace PushwooshSample
 {
@@ -33,14 +33,14 @@ namespace PushwooshSample
 
 			PushNotificationManager pushmanager = PushNotificationManager.PushManager;
 			pushmanager.Delegate = this;
-			UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge;
-			UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
 
 			if (options != null) {
 				if (options.ContainsKey (UIApplication.LaunchOptionsRemoteNotificationKey)) { 
 					pushmanager.HandlePushReceived (options);
 				}
 			}
+
+			pushmanager.RegisterForPushNotifications ();
 
 			pushmanager.StartLocationTracking ();
 
@@ -58,11 +58,11 @@ namespace PushwooshSample
 			PushNotificationManager.PushManager.HandlePushRegistrationFailure (error);
 		}
 
-		[Export ("application:didReceiveRemoteNotification:")]
-		public void DidReceiveRemoteNotification (UIApplication application, NSDictionary userInfo)
+		public override void ReceivedRemoteNotification (UIApplication application, NSDictionary userInfo)		
 		{
 			PushNotificationManager.PushManager.HandlePushReceived (userInfo);
 		}
-	}
+}
+
 }
 
