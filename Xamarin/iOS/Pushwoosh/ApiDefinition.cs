@@ -5,7 +5,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.CoreLocation;
 
-namespace PushWoosh
+namespace Pushwoosh
 {
 	public delegate void LocationHandler (CLLocation location);
 	public delegate void PushwooshGetTagsHandler (NSDictionary tags);
