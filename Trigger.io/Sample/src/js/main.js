@@ -38,7 +38,7 @@ forge.internal.addEventListener("pushwoosh.pushReceived",
     	alert('push received: ' + notification);
 	});
 
-forge.pushwoosh.onDeviceReady({"pw_appid":"A0443-C41F6", "gcm_id":"387050748417"});
+forge.pushwoosh.onDeviceReady({"pw_appid":"ENTER_PUSHWOOSH_APP_ID_HERE", "gcm_id":"ENTER_GOOGLE_PROJECT_ID_HERE"});
 
 forge.pushwoosh.registerDevice();
 
