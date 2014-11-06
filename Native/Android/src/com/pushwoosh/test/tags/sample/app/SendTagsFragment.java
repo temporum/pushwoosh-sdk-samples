@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 
 import com.arellomobile.android.push.PushManager;
 import com.arellomobile.android.push.SendPushTagsCallBack;
-import com.arellomobile.android.push.exception.PushWooshException;
 
 /**
  * Date: 01.11.12
@@ -99,7 +98,7 @@ public class SendTagsFragment extends Fragment implements SendPushTagsCallBack
 	}
 
 	@Override
-	public void onSentTagsError(PushWooshException e)
+	public void onSentTagsError(Exception e)
 	{
 		synchronized (mSyncObject)
 		{
