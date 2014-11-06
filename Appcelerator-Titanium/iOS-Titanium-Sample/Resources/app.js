@@ -110,7 +110,6 @@ register.addEventListener('click', function() {
 		Ti.API.warn("push notifications disabled: " + JSON.stringify(e));
 	}
 
-	
 	Ti.API.info('registering with PushWoosh');
 	
 	PushWoosh.startLocationTracking('PWTrackAccurateLocationChanges');
