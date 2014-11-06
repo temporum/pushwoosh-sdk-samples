@@ -19,6 +19,8 @@ using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
 using Windows.Networking.PushNotifications;
 using System.Diagnostics;
+using PushSDK.Classes;
+using Newtonsoft.Json;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace PushWooshSample
@@ -35,40 +37,10 @@ namespace PushWooshSample
             this.InitializeComponent();
         }
 
-        void service_OnPushAccepted(object sender, Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs e)
+        void service_OnPushAccepted(object sender, ToastPush push)
         {
-            String notificationContent = String.Empty;
-
-            String type = String.Empty;
-            switch (e.NotificationType)
-            {
-                case PushNotificationType.Badge:
-                    notificationContent = e.BadgeNotification.Content.GetXml();
-                    type = "Badge";
-                    break;
-
-                case PushNotificationType.Tile:
-
-                    notificationContent = e.TileNotification.Content.GetXml();
-                    type = "Tile";
-                    break;
-
-                case PushNotificationType.Toast:
-
-                    notificationContent = e.ToastNotification.Content.GetXml();
-                    type = "Toast";
-                    break;
-
-                case PushNotificationType.Raw:
-                    notificationContent = e.RawNotification.Content;
-                    type = "Raw";
-                    break;
-            }
-
-            Debug.WriteLine("Received {0} notification", type);
-            Debug.WriteLine("Notification content: " + notificationContent);
-
-            var alert = new MessageDialog("Notification content: " + notificationContent, type + " received");
+            string pushString = JsonConvert.SerializeObject(push);
+            var alert = new MessageDialog("Notification content: " + pushString + " received");
             alert.ShowAsync();
         }
 
@@ -167,7 +139,7 @@ namespace PushWooshSample
             {
 
                 string _PWId = PWID.Text;
-                service = PushSDK.NotificationService.GetCurrent(_PWId, "");
+                service = PushSDK.NotificationService.GetCurrent(_PWId);
                 if (Host.Text.EndsWith("/"))
                 {
                     service.SetHost(Host.Text);

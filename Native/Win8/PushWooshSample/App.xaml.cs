@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using PushSDK;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,17 +43,7 @@ namespace PushWooshSample
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            if (args.Arguments != null && args.Arguments.Length != 0)
-            {
-                try
-                {
-                    //Notify Pushwoosh about start push
-                    PushSDK.NotificationService pushService = PushSDK.NotificationService.GetCurrent(null, "");
-                    if(pushService != null)
-                        pushService.HandleStartPushStat(args.Arguments);
-                }
-                catch { }
-            }
+            NotificationService.HandleStartPush(args.Arguments);
 
             Frame rootFrame = Window.Current.Content as Frame;
 

@@ -15,6 +15,8 @@
                 // TODO: This application has been newly launched. Initialize
                 // your application here.
 
+                //Handle start push
+                PushSDK.NotificationService.handleStartPush(args.detail.arguments);
 
 
             } else {
@@ -46,7 +48,7 @@ function subscribeClick(mouseEvent) {
 
         var host = document.getElementById('host').value;
         var id = document.getElementById('PwAppId').value;
-        var service = new PushSDK.NotificationService.getCurrent(id, "", null);
+        var service = new PushSDK.NotificationService.getCurrent(id);
         service.setHost(host);
 
         service.ononpushaccepted = function (args) {
@@ -95,9 +97,10 @@ var hideProgress = function () {
 
 function unsubscribeClick(mouseEvent) {
     try {
-        var id = document.getElementById('PwAppId').value;
-        var service = new PushSDK.NotificationService.getCurrent(id, "", null);
-        service.unsubscribeFromPushes();
+        var service = new PushSDK.NotificationService.getCurrent(null);
+        if(service != null)
+            service.unsubscribeFromPushes(null, null);
+
         var fieldNameElement = document.getElementById('userToken');
         if (fieldNameElement.firstChild)
             fieldNameElement.firstChild.nodeValue = "wait token...";
@@ -114,8 +117,7 @@ function unsubscribeClick(mouseEvent) {
 
 function setGeozone() {
 
-    var id = document.getElementById('PwAppId').value;
-    var service = new PushSDK.NotificationService.getCurrent(id, "", null);
+    var service = new PushSDK.NotificationService.getCurrent(null);
 
     var check = document.getElementById('geozone');
 
@@ -182,12 +184,11 @@ function sendingTagClick(mouseEvent) {
     var keys = [_key];
     var values = [_value];
 
-    var id = document.getElementById('PwAppId').value;
-    var service = new PushSDK.NotificationService.getCurrent(id, "", null);
+    var service = new PushSDK.NotificationService.getCurrent(null);
     if (service != null) {
         if (service.pushToken != null) {
             try {
-                var tag = new PushSDK.NotificationService.getCurrent(id, "", null);
+                var tag = new PushSDK.NotificationService.getCurrent(null);
 
                 tag.getTags(
                     function (caller, tags) {
