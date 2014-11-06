@@ -1,6 +1,6 @@
 Archive member included because of file (symbol)
 
-/Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+/Applications/Marmalade7.3.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
                               release/s3ePushWoosh_platform.os (s3eEdkThreadRunOnOS)
 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(atexit_arm.o)
                               release/s3ePushWoosh_platform.os (__aeabi_atexit)
@@ -95,7 +95,7 @@ Discarded input sections
  .note.GNU-stack
                 0x00000000        0x0 release/s3ePushWoosh_register.os
  .note.GNU-stack
-                0x00000000        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00000000        0x0 /Applications/Marmalade7.3.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
  .note.GNU-stack
                 0x00000000        0x0 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(atexit_arm.o)
  .group         0x00000000       0x10 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(string-inst.o)
@@ -544,15 +544,15 @@ Memory map
                 0x00004a68                s3ePushWooshRegister
                 0x00004a98                s3ePushWooshRegisterExt()
                 0x00004bf8                RegisterExt
- .text          0x00004d58        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+ .text          0x00004d58        0x0 /Applications/Marmalade7.3.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
  .text.s3eEdkErrorSetString
-                0x00004d58       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00004d58       0x30 /Applications/Marmalade7.3.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
                 0x00004d58                s3eEdkErrorSetString
  .text.s3eEdkThreadRunOnOS
-                0x00004d88       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00004d88       0x30 /Applications/Marmalade7.3.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
                 0x00004d88                s3eEdkThreadRunOnOS
  .text.s3eEdkThreadRunOnOSAsync
-                0x00004db8       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00004db8       0x30 /Applications/Marmalade7.3.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
                 0x00004db8                s3eEdkThreadRunOnOSAsync
  .text          0x00004de8        0x0 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(atexit_arm.o)
  .text.__aeabi_atexit
@@ -3693,7 +3693,7 @@ Memory map
  .data          0x0001a004        0x0 release/s3ePushWoosh_platform.os
  .data          0x0001a004        0x0 release/s3ePushWoosh.os
  .data          0x0001a004        0x0 release/s3ePushWoosh_register.os
- .data          0x0001a004        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+ .data          0x0001a004        0x0 /Applications/Marmalade7.3.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
  .data          0x0001a004        0x0 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(atexit_arm.o)
  .data          0x0001a004        0x0 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(string-inst.o)
  .data          0x0001a004        0x0 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(functexcept.o)
@@ -3748,7 +3748,7 @@ Memory map
                 0x0001a014                g_pushToken
  .bss           0x0001a054        0x0 release/s3ePushWoosh.os
  .bss           0x0001a054        0x0 release/s3ePushWoosh_register.os
- .bss           0x0001a054        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+ .bss           0x0001a054        0x0 /Applications/Marmalade7.3.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
  .bss           0x0001a054        0x0 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(atexit_arm.o)
  .bss           0x0001a054        0x0 /Volumes/workspace/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.8/libs/armeabi/libgnustl_static.a(string-inst.o)
  .bss._ZNSs4_Rep20_S_empty_rep_storageE
