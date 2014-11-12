@@ -5,6 +5,8 @@ import java.util.Map;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 
 import com.arellomobile.android.push.PushManager;
@@ -88,29 +90,39 @@ public class SendTagsFragment extends Fragment implements SendPushTagsCallBack
 	@Override
 	public void onSentTagsSuccess(Map<String, String> stringStringMap)
 	{
-		synchronized (mSyncObject)
-		{
-			mSendTagsStatus = R.string.status_success;
-			mTask = null;
-			transfareStatusToActivity();
-			transfareTaskEndsToActivity();
-		}
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+		    @Override
+		    public void run() {
+				synchronized (mSyncObject)
+				{
+					mSendTagsStatus = R.string.status_success;
+					mTask = null;
+					transfareStatusToActivity();
+					transfareTaskEndsToActivity();
+				}
+		    }
+		});
 	}
 
 	@Override
-	public void onSentTagsError(Exception e)
+	public void onSentTagsError(final Exception e)
 	{
-		synchronized (mSyncObject)
-		{
-			mSendTagsStatus = R.string.status_error;
-			if (null != e)
-			{
-				e.printStackTrace();
-			}
-			mTask = null;
-			transfareStatusToActivity();
-			transfareTaskEndsToActivity();
-		}
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+		    @Override
+		    public void run() {
+				synchronized (mSyncObject)
+				{
+					mSendTagsStatus = R.string.status_error;
+					if (null != e)
+					{
+						e.printStackTrace();
+					}
+					mTask = null;
+					transfareStatusToActivity();
+					transfareTaskEndsToActivity();
+				}
+		    }
+		});
 	}
 
 	private boolean goodAllInputData(String tagInt, String tagString)
