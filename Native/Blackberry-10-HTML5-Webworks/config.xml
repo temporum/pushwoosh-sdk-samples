@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="PushwooshCompactSampleNew" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+    <feature name="com.blackberry.app" value="com.blackberry.app" />
+    <feature name="com.blackberry.identity" value="com.blackberry.identity" />
+    <feature name="com.blackberry.invoked" value="com.blackberry.invoked" />
+    <feature name="com.blackberry.utils" />
+    <feature name="com.blackberry.push" value="com.blackberry.push" />
+    <feature name="com.blackberry.notification" value="com.blackberry.notification" />
+    <feature name="com.blackberry.ui.dialog" value="com.blackberry.ui.dialog" />
+    <feature name="com.blackberry.ui.toast" value="com.blackberry.ui.toast" />
+    <rim:permissions>
+        <rim:permit>read_device_identifying_information</rim:permit>
+        <rim:permit system="true">_sys_use_consumer_push</rim:permit>
+        <rim:permit>run_when_backgrounded</rim:permit>
+        <rim:permit>post_notification</rim:permit>
+    </rim:permissions>
+    <name>PushwooshCompactSample</name>
+    <author>Pushwoosh</author>
+    <description>A sample WebWorks application showing pushwoosh client integration.</description>
+    <content src="index.html" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="ChildBrowser" value="enable" />
+    <preference name="DiskCache" value="disable" />
+    <preference name="HideKeyboardFormAccessoryBar" value="disable" />
+    <preference name="Orientation" value="default" />
+    <preference name="PopupBlocker" value="disable" />
+    <preference name="WebSecurity" value="enable" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+    <access subdomains="true" uri="http://cp.pushwoosh.com" />
+    <rim:invoke-target id="pushwoosh_sample2.invoke.push">
+        <type>APPLICATION</type>
+        <filter>
+            <action>bb.action.PUSH</action>
+            <mime-type>application/vnd.push</mime-type>
+        </filter>
+    </rim:invoke-target>
+    <rim:invoke-target id="pushwoosh_sample2.invoke.open">
+        <type>APPLICATION</type>
+        <filter>
+            <action>bb.action.OPEN</action>
+            <mime-type>text/plain</mime-type>
+        </filter>
+    </rim:invoke-target>
+</widget>
