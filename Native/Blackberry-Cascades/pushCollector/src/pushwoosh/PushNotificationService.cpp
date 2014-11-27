@@ -118,7 +118,7 @@ void PushNotificationService::setTags(const QVariantMap & tags, QObject * slotOb
     requestManager.sendRequest(tagsRequest);
 }
 
-void PushNotificationService::getTags(const QVariantMap & tags, QObject * slotObject, const char * callbackSlot)
+void PushNotificationService::getTags(QObject * slotObject, const char * callbackSlot)
 {
     PWGetTagsRequest * tagsRequest = new PWGetTagsRequest(m_configuration.pushwooshAppId());
 

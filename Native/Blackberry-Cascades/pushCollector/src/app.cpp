@@ -19,6 +19,7 @@
 #include "PushContentController.hpp"
 
 #include "pushwoosh/request/PWRequest.h"
+#include "pushwoosh/request/PWSetTagsRequest.h"
 #include "pushwoosh/request/PWGetTagsRequest.h"
 
 #include <bb/cascades/AbstractPane>
@@ -143,8 +144,8 @@ void App::createChannel()
     map["Array"] = QVariant(array);
 
     //Set Tags and Get Tags example
-    //m_pushNotificationService.setTags(map, this, SLOT(setTagsFinished(PWRequest*)));
-    //m_pushNotificationService.getTags(map, this, SLOT(getTagsFinished(PWRequest*)));
+    m_pushNotificationService.setTags(map, this, SLOT(setTagsFinished(PWRequest*)));
+    m_pushNotificationService.getTags(this, SLOT(getTagsFinished(PWRequest*)));
 }
 
 void App::setTagsFinished(PWRequest * request)
