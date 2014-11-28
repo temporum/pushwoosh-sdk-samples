@@ -12,6 +12,20 @@ public class PushNotificationsAndroid : MonoBehaviour {
 		
 		Debug.Log(this.gameObject.name);
 		Debug.Log(getPushToken());
+
+		//Example only:
+		String [] result = getPushHistory();
+		clearPushHistory();
+
+		//Clear old notifications from notification center
+		clearNotificationCenter();
+
+		//Example: output push history to the log
+		foreach (string str in result)
+		{
+			Debug.Log("PUSHWOOSH: history result: " + str);
+		}
+
 	}
 	
 	// Update is called once per frame
@@ -62,7 +76,26 @@ public class PushNotificationsAndroid : MonoBehaviour {
 
 		pushwoosh.Call ("setListTag", tagName, tags);
 	}
+
+	public String[] getPushHistory()
+	{
+		AndroidJavaObject history = pushwoosh.Call<AndroidJavaObject>("getPushHistory");
+		if (history.GetRawObject().ToInt32() == 0)
+		{
+			return new String[0];
+		}
+		
+		String[] result = AndroidJNIHelper.ConvertFromJNIArray<String[]>(history.GetRawObject());
+		history.Dispose();
+		
+		return result;
+	}
 	
+	public void clearPushHistory()
+	{
+		pushwoosh.Call("clearPushHistory");
+	}
+
 	public void sendLocation(double lat, double lon)
 	{
 		pushwoosh.Call("sendLocation", lat, lon);
@@ -81,6 +114,11 @@ public class PushNotificationsAndroid : MonoBehaviour {
 	public void clearLocalNotifications()
 	{
 		pushwoosh.Call("clearLocalNotifications");
+	}
+
+	public void clearNotificationCenter()
+	{
+		pushwoosh.Call("clearNotificationCenter");
 	}
 
 	public void scheduleLocalNotification(string message, int seconds)
