@@ -110,7 +110,22 @@ public class PushNotificationsAndroid : MonoBehaviour {
 	{
 		pushwoosh.Call("stopTrackingGeoPushes");
 	}
+	
+	public void startTrackingBeaconPushes()
+	{
+		pushwoosh.Call("startTrackingBeaconPushes");
+	}
 
+	public void stopTrackingBeaconPushes()
+	{
+		pushwoosh.Call("stopTrackingBeaconPushes");
+	}
+
+	public void setBeaconBackgroundMode(bool backgroundMode)
+	{
+		pushwoosh.Call("setBeaconBackgroundMode", backgroundMode);
+	}
+	
 	public void clearLocalNotifications()
 	{
 		pushwoosh.Call("clearLocalNotifications");
