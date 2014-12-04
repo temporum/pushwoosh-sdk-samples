@@ -7,7 +7,7 @@
 @interface CustomPageViewController : UIViewController
 
 @property (nonatomic, strong) UIColor *bgColor;
-@property (nonatomic, assign) NSInteger pageId;
+@property (nonatomic, assign) NSInteger discount;
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 

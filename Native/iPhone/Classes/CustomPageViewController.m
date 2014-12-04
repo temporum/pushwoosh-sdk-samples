@@ -11,7 +11,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.view.backgroundColor = self.bgColor;
-	self.titleLabel.text = [NSString stringWithFormat:@"Custom page with id %ld", (long)self.pageId];
+	self.titleLabel.text = [NSString stringWithFormat:@"Only today get %ld%% discount!", (long)self.discount];
 }
 
 - (IBAction)closeAction:(id)sender {
