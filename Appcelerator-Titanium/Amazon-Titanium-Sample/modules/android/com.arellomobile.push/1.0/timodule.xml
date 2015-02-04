@@ -21,7 +21,11 @@
             
             <application>
                 <activity android:name="com.arellomobile.android.push.PushWebview"/>                
-                <receiver android:name="com.arellomobile.push.IntentReceiver"/>
+                <receiver android:name="com.arellomobile.push.IntentReceiver">
+                <intent-filter>
+                        <action android:name="${tiapp.properties['id']}.com.arellomobile.android.push.REGISTER_BROAD_CAST_ACTION"/>
+                    </intent-filter>
+                </receiver>
                 
                 <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
                     <intent-filter>
