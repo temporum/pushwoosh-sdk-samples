@@ -1,9 +1,9 @@
 using System;
 using System.Drawing;
-using MonoTouch.ObjCRuntime;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreLocation;
+using ObjCRuntime;
+using Foundation;
+using UIKit;
+using CoreLocation;
 
 namespace Pushwoosh
 {
@@ -22,7 +22,7 @@ namespace Pushwoosh
 	public partial interface PWHtmlWebViewController  {
 
 		[Export ("initWithURLString:")]
-		IntPtr Constructor (string url);
+		IntPtr Constructor (NSString url);
 
 		[Export ("delegate", ArgumentSemantic.Assign)]
 		HtmlWebViewControllerDelegate Delegate { get; set; }
@@ -41,7 +41,7 @@ namespace Pushwoosh
 	public partial interface PushNotificationDelegate {
 
 		[Export ("onDidRegisterForRemoteNotificationsWithDeviceToken:")]
-		void  DidRegisterForRemoteNotificationsWithDeviceToken (string token);
+		void  DidRegisterForRemoteNotificationsWithDeviceToken (NSString token);
 
 		[Export ("onDidFailToRegisterForRemoteNotificationsWithError:")]
 		void  DidFailToRegisterForRemoteNotificationsWithError (NSError error);
@@ -67,17 +67,17 @@ namespace Pushwoosh
 	public partial interface PWTags {
 
 		[Static, Export ("incrementalTagWithInteger:")]
-		NSDictionary IncrementalTagWithInteger (int delta);
+		NSDictionary IncrementalTagWithInteger (nint delta);
 	}
 
 	[BaseType (typeof (NSObject))]
 	public partial interface PushNotificationManager {
 
 		[Export ("appCode", ArgumentSemantic.Copy)]
-		string AppCode { get; set; }
+		NSString AppCode { get; set; }
 
 		[Export ("appName", ArgumentSemantic.Copy)]
-		string AppName { get; set; }
+		NSString AppName { get; set; }
 
 		[Export ("delegate", ArgumentSemantic.Assign)]
 		NSObject Delegate { get; set; }
@@ -95,7 +95,7 @@ namespace Pushwoosh
 		bool ShowPushnotificationAlert { get; set; }
 
 		[Static, Export ("initializeWithAppCode:appName:")]
-		void InitializeWithAppCodeAndName (string appCode, string appName);
+		void InitializeWithAppCodeAndName (NSString appCode, NSString appName);
 
 		[Static, Export ("pushManager")]
 		PushNotificationManager PushManager { get; }
@@ -104,10 +104,10 @@ namespace Pushwoosh
 		bool GetAPSProductionStatus { get; }
 
 		[Export ("initWithApplicationCode:appName:")]
-		IntPtr Constructor (string appCode, string appName);
+		IntPtr Constructor (NSString appCode, NSString appName);
 
 		[Export ("initWithApplicationCode:navController:appName:")]
-		IntPtr Constructor (string appCode, UIViewController navController, string appName);
+		IntPtr Constructor (NSString appCode, UIViewController navController, NSString appName);
 
 		[Export ("showWebView")]
 		void ShowWebView ();
@@ -137,16 +137,16 @@ namespace Pushwoosh
 		void SendAppOpen ();
 
 		[Export ("sendBadges:")]
-		void SendBadges (int badge);
+		void SendBadges (nint badge);
 
 		[Export ("sendLocation:")]
 		void SendLocation (CLLocation location);
 
 		[Export ("recordGoal:")]
-		void RecordGoal (string goal);
+		void RecordGoal (NSString goal);
 
 		[Export ("recordGoal:withCount:")]
-		void RecordGoal (string goal, NSNumber count);
+		void RecordGoal (NSString goal, NSNumber count);
 
 		[Export ("getPushToken")]
 		string GetPushToken { get; }
@@ -155,7 +155,7 @@ namespace Pushwoosh
 		void HandlePushRegistration (NSData devToken);
 
 		[Export ("handlePushRegistrationString:")]
-		void HandlePushRegistrationString (string deviceID);
+		void HandlePushRegistrationString (NSString deviceID);
 
 		[Export ("handlePushRegistrationFailure:")]
 		void HandlePushRegistrationFailure (NSError error);

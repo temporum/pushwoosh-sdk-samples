@@ -1,9 +1,9 @@
 using System;
 using System.Drawing;
-using MonoTouch.ObjCRuntime;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreLocation;
+using ObjCRuntime;
+using Foundation;
+using UIKit;
+using CoreLocation;
 
 namespace Pushwoosh
 {

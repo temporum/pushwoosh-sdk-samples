@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using Pushwoosh;
 
 namespace PushwooshSample
@@ -39,7 +39,7 @@ namespace PushwooshSample
 					pushmanager.HandlePushReceived (options);
 				}
 			}
-
+			 
 			pushmanager.RegisterForPushNotifications ();
 
 			pushmanager.StartLocationTracking ();
