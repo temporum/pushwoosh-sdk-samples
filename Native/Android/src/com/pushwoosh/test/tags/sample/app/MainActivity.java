@@ -178,7 +178,7 @@ public class MainActivity extends FragmentActivity implements SendTagsCallBack
 		IntentFilter intentFilter = new IntentFilter(getPackageName() + ".action.PUSH_MESSAGE_RECEIVE");
 
 		if (broadcastPush)
-			registerReceiver(mReceiver, intentFilter);
+			registerReceiver(mReceiver, intentFilter, getPackageName() +".permission.C2D_MESSAGE", null);
 
 		registerReceiver(mBroadcastReceiver, new IntentFilter(getPackageName() + "." + PushManager.REGISTER_BROAD_CAST_ACTION));
 	}

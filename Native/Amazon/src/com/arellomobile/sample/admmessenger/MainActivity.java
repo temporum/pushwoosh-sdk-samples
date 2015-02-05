@@ -106,7 +106,7 @@ public class MainActivity extends Activity
 	{
 		IntentFilter intentFilter = new IntentFilter(getPackageName() + ".action.PUSH_MESSAGE_RECEIVE");
 
-		registerReceiver(mReceiver, intentFilter);
+		registerReceiver(mReceiver, intentFilter, getPackageName() +".permission.RECEIVE_ADM_MESSAGE", null);
 
 		registerReceiver(mBroadcastReceiver, new IntentFilter(getPackageName() + "." + PushManager.REGISTER_BROAD_CAST_ACTION));
 	}
