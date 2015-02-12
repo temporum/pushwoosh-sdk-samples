@@ -10,11 +10,11 @@ int32 OnPushRegistered(char* token, void* userData)
 {
     if (token)
     {
-        message += token;
+        message += std::string("\n") + std::string(token);
     }
     else
     {
-        message += std::string("Error registering for push notifications");
+        message += std::string("\nError registering for push notifications");
     }
     return 0;
 }
