@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class PushNotificationsAndroid : MonoBehaviour {
 
-	// Use this for initialization
+	// Use this for initialization//
 	void Start () {
 		InitPushwoosh();
 		registerForPushNotifications();
